@@ -4,7 +4,9 @@ const Gestor = require('../models/gestor'); // Importe o modelo de gestor
 
 exports.login = async (req, res) => {
   try {
-    const { email, senha } = req.body;
+    const { email, senha } = req.body; // Adicione "token" ao destructuring
+
+    // Aqui você pode usar o token conforme necessário no restante do seu código
 
     let user;
 
