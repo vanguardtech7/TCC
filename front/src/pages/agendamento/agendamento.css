@@ -1,0 +1,176 @@
+.section-body {
+  background-color: var(--doctor);
+  height: 100vh;
+  font-family: var(--dm-sans);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section-container {
+  margin: 12vh 0vw 0vh 15vw;
+  padding: 2vh;
+  display: flex;
+  z-index: 1;
+  position: relative;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.agendamento-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4vh;
+}
+
+.section-title {
+  font-size: 2.2em;
+  font-weight: var(--bold);
+}
+
+.input-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: var(--semi-bold);
+  font-size: 1.2em;
+  margin: 3vh 0 1vh;
+}
+
+.datetime-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-wrap: nowrap;
+}
+
+.datetime-sub-container {
+  width: 45%;
+}
+
+.timepicker {
+  width: 100%;
+}
+.dragger-text {
+  font-weight: var(--semi-bold);
+}
+
+.dragger-info {
+  font-size: 0.9em;
+  align-self: center;
+  text-align: center;
+  color: var(--pompeii-ash);
+}
+
+.dragger-text {
+  color: var(--seared-grey);
+  margin-bottom: 1vh;
+}
+
+.dragger-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
+}
+
+.confirmacao-modal-container {
+  background-color: var(--icewind-dale);
+  border-radius: 10px;
+  padding: 3vh 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+
+  position: absolute;
+  top: 30%;
+  right: 43%;
+  width: 30vw;
+  height: fit-content;
+  z-index: 3;
+
+  color: var(--washed-black);
+}
+
+.confirmacao-divider {
+  width: 70%;
+  border: 1px solid var(--seared-grey);
+}
+
+.modal-title {
+  font-size: 2.4em;
+  text-align: center;
+}
+
+.modal-info {
+  width: 100%;
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: var(--regular);
+}
+
+.modal-button {
+  color: var(--icewind-dale);
+  background-color: var(--cosmic-cobalt);
+  border: none;
+  outline: none;
+  padding: 1.5vh 2vw;
+  font-size: 1em;
+  font-weight: var(--semi-bold);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2vh 0 1vh;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.grey {
+  color: var(--washed-black);
+  background-color: var(--pompeii-ash);
+}
+
+.agendamento-btn {
+  width: 20%;
+}
+
+@media screen and (min-device-width: 1270px) and (max-device-width: 1600px) {
+  .dragger-container {
+    height: fit-content;
+  }
+
+  .input-container {
+    overflow-y: scroll;
+    height: 60vh;
+    width: 100%;
+    padding: 0 2vw;
+  }
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 576px) {
+  .section-container {
+    margin: 10vh 0;
+  }
+
+  .input-container {
+    max-height: 80vh;
+    overflow-x: hidden;
+    margin: 0;
+    width: 90%;
+  }
+
+  .agendamento-btn {
+    width: 50%;
+    margin-top: -2vh;
+  }
+}

@@ -1,0 +1,180 @@
+.body {
+  max-height: 100vh;
+  background-image: url("../../assets/images/background-image.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  font-family: var(--dm-sans);
+}
+
+.login-sidebar {
+  width: 22vw;
+  height: 100vh;
+  align-self: flex-end;
+  background-color: var(--washed-black);
+  padding: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.aside-sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10vh;
+}
+
+.esqueci-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 5vh;
+}
+
+.esqueci-form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 6vh 0 8vh;
+}
+
+.form {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+label {
+  font-size: 1.2em;
+  color: var(--doctor);
+}
+
+.login-title {
+  color: var(--doctor);
+  font-size: 3.8em;
+  font-weight: var(--semi-bold);
+  align-self: center;
+  text-shadow: -3px -0px 0px var(--blurstering-blue);
+  text-align: center;
+}
+
+.login-input {
+  padding: 0.8vh;
+  color: var(--antartic-deep);
+  width: 100%;
+}
+
+.login-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.esqueci-senha {
+  color: var(--shy-moment);
+  text-decoration: underline;
+  float: right;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.login-info {
+  color: var(--shy-moment);
+  padding: 5vh 1vw;
+}
+
+.login-links-container {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  color: var(--doctor);
+  text-decoration: none;
+  justify-content: space-around;
+  font-weight: var(--regular);
+}
+
+.login-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--shy-moment);
+  font-weight: var(--bold);
+}
+
+.cadastro-container {
+  width: 90%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.cadastro-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.cadastro-input {
+  color: var(--doctor);
+}
+
+.login-text{
+    cursor: default;
+    margin-top: 10vh;
+    font-weight: var(--regular);
+    font-size: 1.2em;
+    text-align: center;
+}
+
+@media screen and (min-device-width: 1270px) and (max-device-width: 1600px) {
+  .login-title {
+    font-size: 2.5em;
+  }
+
+  .form-container {
+    gap: 2vh;
+  }
+
+
+  .login-links-container {
+    text-wrap: nowrap;
+    font-size: 0.8em;
+  }
+
+  .cadastro-container {
+    max-height: 60vh;
+    gap: 0;
+  }
+
+  .cadastro-form {
+    gap: 2vh;
+    overflow-y: scroll;
+    margin: 2vh 0;
+  }
+
+  .label {
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 576px) {
+
+  .body{
+    background-image: none;
+  }
+
+  .login-sidebar{
+    width: 100%;
+  }
+}

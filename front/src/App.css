@@ -1,0 +1,156 @@
+/* @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Reem+Kufi+Ink&display=swap"); */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Reem Kufi Ink';
+  src: url('./assets/fonts/Reem_Kufi_Ink/ReemKufiInk-Regular.ttf') format('truetype');
+}
+
+:root {
+  /* variavel das fontes */
+  --dm-sans: "DM Sans";
+  --reem-kufi: "Reem Kufi Ink";
+
+  /* variavel de fonte weight do DM Sans */
+
+  --extra-light: 200;
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semi-bold: 600;
+  --bold: 700;
+  --extra-bold: 800;
+  --black: 900;
+
+  /* variável pras cores */
+  --cosmic-cobalt: #312787;
+  --purplish-blue: #5a48f9;
+  --blurstering-blue: #4318ff;
+  --shy-moment: #aaa1ff;
+  --mild-blue-yonder: #a3aed0;
+  --washed-black: #212529;
+  --antartic-deep: #343a40;
+  --seared-grey: #495057;
+  --pompeii-ash: #6c757d;
+  --cloud-cover: #adb5bd;
+  --sadin-white: #ced4da;
+  --bright-star: #dee2e6;
+  --icewind-dale: #e9ecef;
+  --doctor: #f8f9fa;
+
+  /* outras variáveis */
+  --header-background: rgba(33, 37, 41, 0.9);
+
+  /* toastify */
+  --toastify-color-dark: #343a40;
+}
+
+/* style da scroll bar */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: #898f9111;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #898f9111;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #898f9111;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background-color: var(--washed-black);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--washed-black);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--washed-black);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  scroll-behavior: smooth;
+  transition: 0.5s;
+  user-select: none;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.spinner {
+  position: relative;
+  width: 33.6px;
+  height: 33.6px;
+  perspective: 67.2px;
+}
+
+.spinner div {
+  width: 100%;
+  height: 100%;
+  background: var(--cosmic-cobalt);
+  position: absolute;
+  left: 50%;
+  transform-origin: left;
+  animation: spinner-16s03x 2s infinite;
+}
+
+.spinner div:nth-child(1) {
+  animation-delay: 0.15s;
+  background: var(--cosmic-cobalt);
+}
+
+.spinner div:nth-child(2) {
+  animation-delay: 0.3s;
+  background: var(--blurstering-blue);
+}
+
+.spinner div:nth-child(3) {
+  animation-delay: 0.45s;
+  background: var(--blurstering-blue);
+}
+
+.spinner div:nth-child(4) {
+  animation-delay: 0.6s;
+  background: var(--purplish-blue);
+}
+
+.spinner div:nth-child(5) {
+  animation-delay: 0.75s;
+}
+
+@keyframes spinner-16s03x {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  50%,
+  80% {
+    transform: rotateY(-180deg);
+  }
+
+  90%,
+  100% {
+    opacity: 0;
+    transform: rotateY(-180deg);
+  }
+}

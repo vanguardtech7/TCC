@@ -1,0 +1,223 @@
+.pedidos-title {
+  font-size: 2em;
+  margin: 1vh 2vw;
+  text-transform: capitalize;
+}
+
+.table-container {
+  margin: 5vh 0;
+}
+
+.modal-excluir-container {
+  background-color: var(--doctor);
+  color: var(--washed-black);
+  width: 20vw;
+
+  height: fit-content;
+  padding: 4vh;
+  border-radius: 10px;
+
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1vh;
+
+  animation: .5s;
+  box-shadow: 0px 1px 5px 0px var(--pompeii-ash);
+}
+
+.modal-excluir-text {
+  color: var(--pompeii-ash);
+  font-weight: var(--regular);
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.modal-btn-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 3vh;
+}
+
+.modal-btn {
+  padding: 1vh 1.5vw;
+  border: none;
+  outline: none;
+  box-shadow: 0px 1px 22px 14px rgba(255, 255, 255, 0.178);
+  font-size: 1.2em;
+  font-weight: var(--semi-bold);
+  font-family: var(--dm-sans);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.btn-cancelar {
+  background-color: var(--pompeii-ash);
+  color: var(--doctor);
+}
+
+.btn-confirmar {
+  background-color: var(--purplish-blue);
+  color: var(--doctor);
+}
+
+.top-container{
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 2vw;
+  position: inherit;
+  
+}
+
+.system-btn{
+  font-family: var(--dm-sans);
+  font-weight: var(--bold);
+  background-color: var(--purplish-blue);
+  color: var(--doctor);
+  font-size: 1.2em;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  padding: 1vh 2vw;
+  border-radius: 5px;
+  
+}
+
+.system-btn:hover{
+  background-color: #3511d8;
+}
+
+.cadastrar-container{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 80vh;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4vh;
+}
+
+.maquina{
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.cadastrar-column{
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  width: 40%;
+}
+
+.cadastrar-input{
+  width: 40%;
+}
+
+.cadastrar-title{
+  font-size: 2.5em;
+}
+
+.cadastrar-label{
+  margin-bottom: .5vh;
+  font-size: 1.1em;
+}
+
+.cadastrar-btn{
+   width: 20%;
+   
+}
+
+.cadastrar-dragger{
+  height: 100%;
+}
+
+b{
+  font-size: 1.5em;
+}
+
+.radio-button-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 2vh;
+}
+
+.radio-button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.radio-button__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio-button__label {
+  display: inline-block;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  position: relative;
+  font-size: 15px;
+  color: var(--washed-black);
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.radio-button__custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  transition: all 0.3s ease;
+}
+
+.radio-button__input:checked + .radio-button__label .radio-button__custom {
+  background-color: #4c8bf5;
+  border-color: transparent;
+  transform: scale(0.8);
+  box-shadow: 0 0 20px #4c8bf580;
+}
+
+.radio-button__input:checked + .radio-button__label {
+  color: #4c8bf5;
+}
+
+.radio-button__label:hover .radio-button__custom {
+  transform: scale(1.2);
+  border-color: #4c8bf5;
+  box-shadow: 0 0 20px #4c8bf580;
+}
+
+
+@media screen and (min-device-width: 1270px) and (max-device-width: 1600px) {
+  .table {
+    width: 90%;
+  }
+
+  .modal-excluir-container {
+    min-width: 24vw;
+    min-height: 4vh;
+  }
+}
