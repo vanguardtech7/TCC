@@ -1,30 +1,26 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
 
-export default function Maquina() {
+export default function Material() {
   const location = useLocation("");
   var pathname = location.pathname.split("/");
   var pathname = location.pathname.replace("%20", " ").replace("/", "");
 
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
-
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-  ];
-
+  const [materials, setMaterials] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const nav = useNavigate()
+  useEffect(() => {
+    fetch("https://aware-clam-teddy.cyclic.app/materiais")
+      .then((response) => response.json())
+      .then((data) => setMaterials(data))
+      .catch((error) => console.error("erro ao buscar materiais", error));
+  }, []);
+
+  const nav = useNavigate();
 
   return (
     <div className="section-body">
@@ -32,7 +28,9 @@ export default function Maquina() {
       <div className="section-container">
         <div className="top-container">
           <h1 className="pedidos-title">{pathname}</h1>
-          <button className="system-btn" onClick={() => (nav('/cadastrar maquina'))}>Cadastrar Maquina</button>
+          <button className="system-btn" onClick={() => nav("/cadastrar material")}>
+            Cadastrar Material
+          </button>
         </div>
 
         <M.TableContainer component={Paper} className="table-container">
@@ -48,15 +46,15 @@ export default function Maquina() {
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
-              {rows.map((row) => (
-                <M.TableRow key={row.name}>
+              {materials.map((material) => (
+                <M.TableRow key={material.id}>
                   <M.TableCell component="th" scope="row">
-                    {row.name}
+                    {material.cor}
                   </M.TableCell>
-                  <M.TableCell align="left">{row.calories}</M.TableCell>
-                  <M.TableCell align="left">{row.fat}</M.TableCell>
-                  <M.TableCell align="left">{row.carbs}</M.TableCell>
-                  <M.TableCell align="left">{row.protein}</M.TableCell>
+                  <M.TableCell align="left">{material.peso}</M.TableCell>
+                  <M.TableCell align="left">{material.material}</M.TableCell>
+                  <M.TableCell align="left">{material.diametro}</M.TableCell>
+                  <M.TableCell align="left">{material.quantidade}</M.TableCell>
                   <M.TableCell
                     align="center"
                     onClick={() => {
@@ -79,8 +77,12 @@ export default function Maquina() {
             <div className="modal-divider"></div>
             <h3 className="modal-excluir-text">Essa ação não poderá ser revertida!</h3>
             <div className="modal-btn-container">
-              <button className="modal-btn btn-cancelar"  onClick={() => {setModalOpen(!modalOpen)}}>Cancelar</button>
-              <button className="modal-btn btn-confirmar" onClick={() => {setModalOpen(!modalOpen)}}>Confirmar</button>
+              <button className="modal-btn btn-cancelar" onClick={() => setModalOpen(!modalOpen)}>
+                Cancelar
+              </button>
+              <button className="modal-btn btn-confirmar" onClick={() => setModalOpen(!modalOpen)}>
+                Confirmar
+              </button>
             </div>
           </div>
           <div
