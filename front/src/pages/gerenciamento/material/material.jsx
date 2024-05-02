@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
+import axios from "axios"; // Importe o Axios
 
 export default function Material() {
   const location = useLocation("");
@@ -12,15 +13,41 @@ export default function Material() {
 
   const [materials, setMaterials] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [materialToDelete, setMaterialToDelete] = useState(null);
 
   useEffect(() => {
-    fetch("https://aware-clam-teddy.cyclic.app/materiais")
-      .then((response) => response.json())
-      .then((data) => setMaterials(data))
-      .catch((error) => console.error("erro ao buscar materiais", error));
+    fetchMaterials();
   }, []);
 
+  const fetchMaterials = () => {
+    axios.get("https://aware-clam-teddy.cyclic.app/materiais")
+      .then((response) => {
+        setMaterials(response.data);
+      })
+      .catch((error) => {
+        console.error("erro ao buscar materiais", error);
+      });
+  };
+
   const nav = useNavigate();
+
+  const handleDelete = () => {
+    if (!materialToDelete) return;
+
+    axios.delete(`https://aware-clam-teddy.cyclic.app/materiais/${materialToDelete.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}` // Adicione o token ao cabeçalho Authorization
+      }
+    })
+      .then(() => {
+        setMaterials(materials.filter(material => material.id !== materialToDelete.id));
+        setModalOpen(false);
+        setMaterialToDelete(null);
+      })
+      .catch((error) => {
+        console.error("erro ao excluir material", error);
+      });
+  };
 
   return (
     <div className="section-body">
@@ -58,7 +85,8 @@ export default function Material() {
                   <M.TableCell
                     align="center"
                     onClick={() => {
-                      setModalOpen(!modalOpen);
+                      setMaterialToDelete(material);
+                      setModalOpen(true);
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -77,10 +105,10 @@ export default function Material() {
             <div className="modal-divider"></div>
             <h3 className="modal-excluir-text">Essa ação não poderá ser revertida!</h3>
             <div className="modal-btn-container">
-              <button className="modal-btn btn-cancelar" onClick={() => setModalOpen(!modalOpen)}>
+              <button className="modal-btn btn-cancelar" onClick={() => setModalOpen(false)}>
                 Cancelar
               </button>
-              <button className="modal-btn btn-confirmar" onClick={() => setModalOpen(!modalOpen)}>
+              <button className="modal-btn btn-confirmar" onClick={handleDelete}>
                 Confirmar
               </button>
             </div>
@@ -88,7 +116,7 @@ export default function Material() {
           <div
             className="hs-overlay"
             onClick={() => {
-              setModalOpen(!modalOpen);
+              setModalOpen(false);
             }}
           ></div>
         </>
