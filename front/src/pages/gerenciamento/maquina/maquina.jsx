@@ -4,23 +4,50 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
+import axios from "axios"; // Importe o Axios
 
-export default function Material() {
+export default function Maquina() {
   const location = useLocation("");
   var pathname = location.pathname.split("/");
   var pathname = location.pathname.replace("%20", " ").replace("/", "");
 
-  const [materials, setMaterials] = useState([]);
+  const [maquinas, setMaquinas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [maquinaSelecionada, setMaquinaSelecionada] = useState(null);
 
   useEffect(() => {
-    fetch("https://aware-clam-teddy.cyclic.app/materiais")
-      .then((response) => response.json())
-      .then((data) => setMaterials(data))
-      .catch((error) => console.error("erro ao buscar materiais", error));
+    fetchMaquinas();
   }, []);
 
+  const fetchMaquinas = () => {
+    axios.get("https://aware-clam-teddy.cyclic.app/maquinas")
+      .then((response) => {
+        setMaquinas(response.data);
+      })
+      .catch((error) => {
+        console.error("erro ao buscar maquinas", error);
+      });
+  };
+
   const nav = useNavigate();
+
+  const handleDelete = () => {
+    if (!maquinaSelecionada) return;
+
+    axios.delete(`https://aware-clam-teddy.cyclic.app/maquinas/${maquinaSelecionada.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}` // Adicione o token ao cabeçalho Authorization
+      }
+    })
+      .then(() => {
+        setMaquinas(maquinas.filter(maquina => maquina.id !== maquinaSelecionada.id));
+        setModalOpen(false);
+        setMaquinaSelecionada(null);
+      })
+      .catch((error) => {
+        console.error("erro ao excluir maquina", error);
+      });
+  };
 
   return (
     <div className="section-body">
@@ -28,8 +55,11 @@ export default function Material() {
       <div className="section-container">
         <div className="top-container">
           <h1 className="pedidos-title">{pathname}</h1>
-          <button className="system-btn" onClick={() => nav("/cadastrar material")}>
-            Cadastrar Material
+          <button
+            className="system-btn"
+            onClick={() => nav("/cadastrar maquina")}
+          >
+            Cadastrar Maquina
           </button>
         </div>
 
@@ -37,28 +67,32 @@ export default function Material() {
           <M.Table aria-label="simple table">
             <M.TableHead>
               <M.TableRow>
-                <M.TableCell>Cor</M.TableCell>
-                <M.TableCell align="left">Peso (un.)</M.TableCell>
-                <M.TableCell align="left">Material</M.TableCell>
-                <M.TableCell align="left">Diâmetro</M.TableCell>
-                <M.TableCell align="left">Quantidade</M.TableCell>
-                <M.TableCell align="center">#</M.TableCell>
+                <M.TableCell>ID</M.TableCell>
+                <M.TableCell align="left">Nome</M.TableCell>
+                <M.TableCell align="left">Modelo</M.TableCell>
+                <M.TableCell align="left">Capacidade</M.TableCell>
+                <M.TableCell align="left">Numero de Série</M.TableCell>
+                <M.TableCell align="center">Entrada de Energia</M.TableCell>
+                <M.TableCell align="center">Especificações</M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
-              {materials.map((material) => (
-                <M.TableRow key={material.id}>
+              {maquinas.map((maquina) => (
+                <M.TableRow key={maquina.id}>
                   <M.TableCell component="th" scope="row">
-                    {material.cor}
+                    {maquina.id}
                   </M.TableCell>
-                  <M.TableCell align="left">{material.peso}</M.TableCell>
-                  <M.TableCell align="left">{material.material}</M.TableCell>
-                  <M.TableCell align="left">{material.diametro}</M.TableCell>
-                  <M.TableCell align="left">{material.quantidade}</M.TableCell>
+                  <M.TableCell align="left">{maquina.nome_maquina}</M.TableCell>
+                  <M.TableCell align="left">{maquina.modelo}</M.TableCell>
+                  <M.TableCell align="left">{maquina.capacidade}</M.TableCell>
+                  <M.TableCell align="left">{maquina.num_serie}</M.TableCell>
+                  <M.TableCell align="left">{maquina.entrada_ener}</M.TableCell>
+                  <M.TableCell align="left">{maquina.especi}</M.TableCell>
                   <M.TableCell
                     align="center"
                     onClick={() => {
-                      setModalOpen(!modalOpen);
+                      setMaquinaSelecionada(maquina);
+                      setModalOpen(true);
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -75,12 +109,22 @@ export default function Material() {
           <div className="modal-excluir-container">
             <h1 className="modal-title">Tem certeza?</h1>
             <div className="modal-divider"></div>
-            <h3 className="modal-excluir-text">Essa ação não poderá ser revertida!</h3>
+            <h3 className="modal-excluir-text">
+              Essa ação não poderá ser revertida!
+            </h3>
             <div className="modal-btn-container">
-              <button className="modal-btn btn-cancelar" onClick={() => setModalOpen(!modalOpen)}>
+              <button
+                className="modal-btn btn-cancelar"
+                onClick={() => {
+                  setModalOpen(!modalOpen);
+                }}
+              >
                 Cancelar
               </button>
-              <button className="modal-btn btn-confirmar" onClick={() => setModalOpen(!modalOpen)}>
+              <button
+                className="modal-btn btn-confirmar"
+                onClick={handleDelete}
+              >
                 Confirmar
               </button>
             </div>
