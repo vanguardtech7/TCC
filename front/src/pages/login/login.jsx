@@ -15,42 +15,53 @@ export default function Login(props) {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token")); // Estado para armazenar o token
 
-  const [showLoading, setShowLoading] = useState(false)
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleLogin = async () => {
-    console.log("entrou no handle login");
-    setShowLoading(true)
+    setShowLoading(true);
     if (email === "" || senha === "") {
       toast.warning("Email ou Senha não preenchidos!", { icon: "⚠" });
-      setTimeout(() => setShowLoading(false), 3000)
+      setShowLoading(false);
       setNull();
     } else {
       try {
         const response = await axios.post(
           "https://aware-clam-teddy.cyclic.app/login",
-          {
-            email,
-            senha,
-          }
+          { email, senha }
         );
-        setTimeout(() => setShowLoading(false), 3000)
+        const { token } = response.data; // Extrai o token da resposta
+        setToken(token); // Armazena o token no estado
+        localStorage.setItem("token", token); // Armazena o token no localStorage
         nav("/agendamento");
       } catch (error) {
         console.error("Erro ao logar:", error);
+        toast.error("Usuário ou senha incorretos. Por favor, tente novamente.");
       }
-      toast.error("Usuário ou senha incorretos. Por favor, tente novamente.");
       setShowLoading(false);
     }
-    // login mocado:
-    // "email": "douglinhas@gmail.com",
-    // "senha": "douglas",
   };
 
+  // Função para limpar os campos de email e senha
   const setNull = () => {
     setEmail("");
     setSenha("");
   };
+
+  // Adicione um interceptor para configurar o cabeçalho de autorização
+  axios.interceptors.request.use(
+    config => {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        config.headers.Authorization = `Bearer ${storedToken}`;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
 
   const [showPassword, setShowPassword] = useState(false);
 
