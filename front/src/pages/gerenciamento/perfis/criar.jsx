@@ -7,26 +7,50 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarPerfil() {
-  const [email, setEmail] = useState("");
-  const [nome, setNome] = useState("");
-  const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const [formData, setFormData] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleCriar = async () => {
-    if (email == "" || senha == "") {
-      toast.warn("Preencha todos os campos!");
+    if (formData.nome == "") {
+      toast.warn("Preencha todos os campos");
     } else {
       try {
-        const response = await axios.post(
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvdWdsYXNzQGdtYWlsLmNvbSIsInVzZXJJZCI6NCwiaWF0IjoxNzE0Njc0OTU1LCJleHAiOjE3MTQ2Nzg1NTV9.wbeHu-A-prEZdfJMQGZnBHg2Ka0FMxDk4hTwfFhsvvo";
+        const config = {
+          Headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        await axios.post(
           "https://aware-clam-teddy.cyclic.app/cadastro-gestor",
-          { email, nome, senha }
+          formData,
+          config
         );
-        console.log(nome, email, senha);
+        console.log("Material cadastrado com sucesso!");
+
+        setFormData({
+          nome: "",
+          email: "",
+          senha: "",
+        });
       } catch (error) {
-        console.error(error);
-        toast.error("Erro ao cadastrar. Tente novamente mais tarde.");
+        console.log(error);
+        console.log("Erro!", formData);
       }
     }
   };
@@ -44,20 +68,26 @@ export default function CriarPerfil() {
                 <p className="cadastrar-label">Nome:</p>
                 <M.TextField
                   fullWidth
-                  onChange={(e) => setNome(e.target.value)}
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleChange}
                 ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">E-mail:</p>
                 <M.TextField
                   fullWidth
-                  onChange={(e) => setEmail(e.target.value)}
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">Senha:</p>
                 <M.OutlinedInput
-                  onChange={(e) => setSenha(e.target.value)}
+                  name="senha"
+                  value={formData.senha}
+                  onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••••"
                   fullWidth

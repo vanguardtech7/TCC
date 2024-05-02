@@ -8,28 +8,33 @@ export default function CriarMaterial() {
   const [formData, setFormData] = useState({
     cor: "",
     quantidade: "",
-    diametro: "1.75", 
+    diametro: "1.75",
     material: "",
-    peso: ""
+    peso: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async () => {
     try {
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvdWdsYXNzQGdtYWlsLmNvbSIsInVzZXJJZCI6NCwiaWF0IjoxNzE0MTU0NTYzLCJleHAiOjE3MTQxNTgxNjN9.rAaXGtBt-Y4UK6HyRD8ipuOLuy2H3k_loEmRx2IMQjA";
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvdWdsYXNzQGdtYWlsLmNvbSIsInVzZXJJZCI6NCwiaWF0IjoxNzE0MTU0NTYzLCJleHAiOjE3MTQxNTgxNjN9.rAaXGtBt-Y4UK6HyRD8ipuOLuy2H3k_loEmRx2IMQjA";
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       };
-      await axios.post("https://aware-clam-teddy.cyclic.app/materiais", formData, config);
+      await axios.post(
+        "https://aware-clam-teddy.cyclic.app/materiais",
+        formData,
+        config
+      );
       console.log("Material cadastrado com sucesso!");
       // Limpar os campos após o envio bem-sucedido
       setFormData({
@@ -37,7 +42,7 @@ export default function CriarMaterial() {
         quantidade: "",
         diametro: "1.75",
         material: "",
-        peso: ""
+        peso: "",
       });
     } catch (error) {
       console.error("Erro ao cadastrar material:", error);
@@ -104,7 +109,9 @@ export default function CriarMaterial() {
               </div>
             </div>
           </div>
-          <button className="system-btn cadastrar-btn" onClick={handleSubmit}>Cadastrar</button>
+          <button className="system-btn cadastrar-btn" onClick={handleSubmit}>
+            Cadastrar
+          </button>
         </div>
       </div>
     </div>

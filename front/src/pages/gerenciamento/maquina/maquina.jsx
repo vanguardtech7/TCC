@@ -20,7 +20,8 @@ export default function Maquina() {
   }, []);
 
   const fetchMaquinas = () => {
-    axios.get("https://aware-clam-teddy.cyclic.app/maquinas")
+    axios
+      .get("https://aware-clam-teddy.cyclic.app/maquinas")
       .then((response) => {
         setMaquinas(response.data);
       })
@@ -34,13 +35,19 @@ export default function Maquina() {
   const handleDelete = () => {
     if (!maquinaSelecionada) return;
 
-    axios.delete(`https://aware-clam-teddy.cyclic.app/maquinas/${maquinaSelecionada.id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}` // Adicione o token ao cabeçalho Authorization
-      }
-    })
+    axios
+      .delete(
+        `https://aware-clam-teddy.cyclic.app/maquinas/${maquinaSelecionada.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicione o token ao cabeçalho Authorization
+          },
+        }
+      )
       .then(() => {
-        setMaquinas(maquinas.filter(maquina => maquina.id !== maquinaSelecionada.id));
+        setMaquinas(
+          maquinas.filter((maquina) => maquina.id !== maquinaSelecionada.id)
+        );
         setModalOpen(false);
         setMaquinaSelecionada(null);
       })
@@ -72,8 +79,9 @@ export default function Maquina() {
                 <M.TableCell align="left">Modelo</M.TableCell>
                 <M.TableCell align="left">Capacidade</M.TableCell>
                 <M.TableCell align="left">Numero de Série</M.TableCell>
-                <M.TableCell align="center">Entrada de Energia</M.TableCell>
-                <M.TableCell align="center">Especificações</M.TableCell>
+                <M.TableCell align="left">Entrada de Energia</M.TableCell>
+                <M.TableCell align="left">Especificações</M.TableCell>
+                <M.TableCell align="center">\\</M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
