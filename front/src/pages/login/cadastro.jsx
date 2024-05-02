@@ -36,19 +36,12 @@ export default function Cadastro() {
         );
         setTimeout(() => setShowLoading(false), 3000)
         console.log(nome, email, cargo, sala, senha);
+
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
         toast.error("Erro ao cadastrar. Por favor, tente novamente.");
       }
     }
-  };
-
-  const setNull = () => {
-    setCargo("");
-    setNome("");
-    setSala("");
-    setSenha("");
-    setEmail("");
   };
 
   const [showPassword, setShowPassword] = useState(false);

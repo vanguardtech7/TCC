@@ -54,7 +54,7 @@ export default function Perfis() {
         <div className="top-container">
           <h1 className="pedidos-title">{pathname}</h1>
           <button className="system-btn" onClick={() => nav("/criar perfil")}>
-            Cadastrar Perfil
+            Cadastrar Novo Gestor
           </button>
         </div>
 
