@@ -12,7 +12,7 @@ import Agendamento from "./pages/agendamento/agendamento";
 import PedidosUsuario from "./pages/pedidos-usuario/pedidos";
 import Pedidos from "./pages/gerenciamento/pedidos/pedidos";
 import CriarPerfil from "./pages/gerenciamento/perfis/criar";
-import EditarPerfil from "./pages/gerenciamento/perfis/editar";
+
 import Perfis from "./pages/gerenciamento/perfis/perfis";
 
 import NotFound from "./components/not-found/not-found";
@@ -75,10 +75,6 @@ const router = createBrowserRouter([
       {
         path: "/criar perfil",
         element: <CriarPerfil />,
-      },
-      {
-        path: "/editar perfil",
-        element: <EditarPerfil />,
       },
       {
         path: "/perfis",

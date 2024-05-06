@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
-import axios from "axios"; // Importe o Axios
+import axios from "axios"; 
 
 export default function Maquina() {
   const location = useLocation("");

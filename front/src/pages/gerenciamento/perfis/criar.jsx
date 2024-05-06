@@ -29,10 +29,9 @@ export default function CriarPerfil() {
       toast.warn("Preencha todos os campos");
     } else {
       try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvdWdsYXNzQGdtYWlsLmNvbSIsInVzZXJJZCI6NCwiaWF0IjoxNzE0Njc0OTU1LCJleHAiOjE3MTQ2Nzg1NTV9.wbeHu-A-prEZdfJMQGZnBHg2Ka0FMxDk4hTwfFhsvvo";
+        const token = localStorage.getItem("token"); // Obter token do localStorage
         const config = {
-          Headers: {
+          headers: {
             Authorization: `Bearer ${token}`,
           },
         };
@@ -41,8 +40,8 @@ export default function CriarPerfil() {
           formData,
           config
         );
-        console.log("Material cadastrado com sucesso!");
-
+        toast.success("Perfil Cadastrado com Sucesso")
+      
         setFormData({
           nome: "",
           email: "",

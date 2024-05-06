@@ -83,9 +83,7 @@ export default function Perfis() {
                   </M.TableCell>
                   <M.TableCell align="left">{perfil.email}</M.TableCell>
                   <M.TableCell align="left">{perfil.cargo || "Gestor"}</M.TableCell>
-                  <M.TableCell align="center" style={{ cursor: "pointer" }}>
-                    <I.EditPencil onClick={() => nav("/editar perfil")} />
-                  </M.TableCell>
+       
                   <M.TableCell align="center" style={{ cursor: "pointer" }}>
                     <I.Trash onClick={() => { setPerfilToDelete(perfil.email); setModalOpen(true); }} />
                   </M.TableCell>

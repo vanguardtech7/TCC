@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios"; // Importe o axios
-
+import { ToastContainer, toast } from "react-toastify";
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
 import * as M from "@mui/material";
 
@@ -34,6 +34,7 @@ export default function CriarMaterial() {
         formData,
         config
       );
+      toast.success("Material Cadastrado com Sucesso!")
       console.log("Material cadastrado com sucesso!");
       // Limpar os campos após o envio bem-sucedido
       setFormData({
@@ -44,13 +45,16 @@ export default function CriarMaterial() {
         peso: "",
       });
     } catch (error) {
-      console.error("Erro ao cadastrar material:", error);
+      toast.warning("Erro ao cadastrar material!")
     }
   };
 
   return (
     <div className="section-body">
-      <HeaderSidebar />
+      <ToastContainer/>
+      
+
+            <HeaderSidebar />
       <div className="section-container">
         <div className="cadastrar-container">
           <h1 className="cadastrar-title">Cadastrar Novo Material</h1>
