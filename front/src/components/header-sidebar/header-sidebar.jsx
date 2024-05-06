@@ -53,16 +53,6 @@ export default function HeaderSidebar() {
             </h1>
             <h1
               className="hs-menu-item"
-              id="dashboard"
-              onClick={() => {
-                nav("/dashboard");
-              }}
-            >
-              <I.GraphUp />
-              Dashboard
-            </h1>
-            <h1
-              className="hs-menu-item"
               id="gerenciamento"
               onClick={() => {
                 setsubMenuOpen(!subMenuOpen);

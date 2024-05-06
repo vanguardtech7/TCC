@@ -14,7 +14,7 @@ import Pedidos from "./pages/gerenciamento/pedidos/pedidos";
 import CriarPerfil from "./pages/gerenciamento/perfis/criar";
 import EditarPerfil from "./pages/gerenciamento/perfis/editar";
 import Perfis from "./pages/gerenciamento/perfis/perfis";
-import Dashboard from "./pages/dashboard/dashboard";
+
 import NotFound from "./components/not-found/not-found";
 import Maquina from "./pages/gerenciamento/maquina/maquina";
 import CriarMaquina from "./pages/gerenciamento/maquina/criar-maquina";
@@ -84,10 +84,7 @@ const router = createBrowserRouter([
         path: "/perfis",
         element: <Perfis />,
       },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
+
       {
         path: "/redefinir senha",
         element: <RedefinirSenha />,
