@@ -26,7 +26,7 @@ async function enviarEmailRecuperacaoSenha(req, res) {
             const resetTokenExpiresAt = moment().add(15, 'minutes').toDate();
 
             // Construir o URL para a página de redefinição de senha com o token
-            const resetPasswordLink = `http://localhost:4000/redefinir-senha?token=${token}`;
+            const resetPasswordLink = `https://espacomaker.vercel.app/redefinir%20senha?token=${token}`;
 
             const resetPasswordEmailContent = {
                 from: SENDER_EMAIL,
