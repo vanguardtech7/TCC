@@ -1,24 +1,28 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
+import BackButton from "../../../components/back-button/back-button";
 import * as M from "@mui/material";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
-  // let [nome, setNome] = useState('')
-  // let [capacidade, setCapacidade] = useState()
-  // let [modelo, setModelo] = useState('')
-  // let [num, setNum] = useState('')
-  // let [especif, setEspecif] = useState('')
-  // let [energia, setEnergia] = useState('')
+
 
   const [formData, setFormData] = useState({
     nome_maquina: "",
+<<<<<<< HEAD
     capacidade: "",
     modelo: "",
     num: "",
     especi: "",
     energia: "",
+=======
+    capacidade: 0.0,
+    modelo: "",
+    num_serie: "",
+    especi: "",
+    entrada_ener: "",
+>>>>>>> eb0e464cee0bfadbdb8f884427279efda71ffa99
   });
 
   const handleChange = (e) => {
@@ -30,6 +34,7 @@ export default function CriarMaquina() {
   };
   const handleCadastro = async () => {
     console.log(formData);
+    console.log(localStorage);
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -43,6 +48,7 @@ export default function CriarMaquina() {
         config
       );
       toast.success("Cadastro realizado com sucesso!");
+<<<<<<< HEAD
   
       setFormData({
         nome_maquina: "",
@@ -52,11 +58,13 @@ export default function CriarMaquina() {
         especi: "",
         energia: "",
       });
+=======
+>>>>>>> eb0e464cee0bfadbdb8f884427279efda71ffa99
     } catch (error) {
       console.log("Erro", error);
+      toast.warning("Erro ao cadastrar máquina!");
     }
   };
-  
 
   return (
     <div className="section-body">
@@ -72,11 +80,14 @@ export default function CriarMaquina() {
       />
       <div className="section-container">
         <div className="cadastrar-container">
-          <h1 className="cadastrar-title">Cadastrar Nova Máquina</h1>
+          <div className="back-container">
+            <BackButton/>
+            <h1 className="cadastrar-title">Cadastrar Nova Máquina</h1>
+          </div>
           <div className="maquina">
             <div className="cadastrar-column">
               <div className="maquina-input">
-                <p className="cadastrar-label">Nome:</p>
+                <p className="cadastrar-label">Nome da Máquina:</p>
                 <M.TextField
                   fullWidth
                   name="nome_maquina"
@@ -119,8 +130,8 @@ export default function CriarMaquina() {
                 <M.TextField
                   fullWidth
                   type="number"
-                  name="num"
-                  value={formData.num}
+                  name="num_serie"
+                  value={formData.num_serie}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
@@ -128,8 +139,8 @@ export default function CriarMaquina() {
                 <p className="cadastrar-label">Entrada de Energia:</p>
                 <M.TextField
                   fullWidth
-                  name="energia"
-                  value={formData.energia}
+                  name="entrada_ener"
+                  value={formData.entrada_ener}
                   onChange={handleChange}
                 ></M.TextField>
               </div>

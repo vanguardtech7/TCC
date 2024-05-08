@@ -1,4 +1,5 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
+import BackButton from "../../../components/back-button/back-button";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 
@@ -40,8 +41,8 @@ export default function CriarPerfil() {
           formData,
           config
         );
-        toast.success("Perfil Cadastrado com Sucesso")
-      
+        toast.success("Perfil Cadastrado com Sucesso");
+
         setFormData({
           nome: "",
           email: "",
@@ -60,7 +61,10 @@ export default function CriarPerfil() {
       <HeaderSidebar />
       <div className="section-container">
         <div className="cadastrar-container">
-          <h1 className="cadastrar-title">Cadastrar Novo Gestor</h1>
+          <div className="back-container">
+            <BackButton />
+            <h1 className="cadastrar-title">Cadastrar Novo Gestor</h1>
+          </div>
           <div className="maquina">
             <div className="cadastrar-column">
               <div className="maquina-input">
