@@ -5,7 +5,6 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
-
   const [formData, setFormData] = useState({
     nome: "",
     capacidade: "",
@@ -23,34 +22,33 @@ export default function CriarMaquina() {
     }));
   };
   const handleCadastro = async () => {
-    console.log(formData)
-      try {
-        const token = localStorage.getItem("token");
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        await axios.post(
-          "https://techprint-1.onrender.com/maquinas",
-          formData,
-          config
-        );
-        toast.success("Cadastro realizado com sucesso!");
+    console.log(formData);
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios.post(
+        "https://techprint-1.onrender.com/maquinas",
+        formData,
+        config
+      );
+      toast.success("Cadastro realizado com sucesso!");
 
-        setFormData({
-          nome: "",
-          capacidade: "",
-          modelo: "",
-          num: "",
-          especif: "",
-          energia: "",
-        });
-      } catch (error) {
-        console.log("Erro", error);
-      }
+      setFormData({
+        nome: "",
+        capacidade: "",
+        modelo: "",
+        num: "",
+        especif: "",
+        energia: "",
+      });
+    } catch (error) {
+      console.log("Erro", error);
     }
-  ;
+  };
 
   return (
     <div className="section-body">
