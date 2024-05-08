@@ -13,8 +13,6 @@ import * as I from "iconoir-react";
 // importando imagens
 import logoSenai from "../../assets/images/logo-senai.svg";
 import heroImage from "../../assets/images/hero-image-full.svg";
-import espaco1 from "../../assets/images/espaco1.svg";
-import espaco2 from "../../assets/images/espaco2.svg";
 import impressora1 from "../../assets/images/impressora1.svg";
 import impressora2 from "../../assets/images/impressora2.svg";
 import impressora3 from "../../assets/images/impressora3.svg";
@@ -135,11 +133,11 @@ export default function LandingPage() {
           </h1>
 
           <div className="sobre-sub-container">
-            <h3 className="sobre-text">
+            <h3>
               O Espaço Maker foi uma área criada na Escola Senai
               Suiço-Brasileira - SP. Feito para disponibilizar um espaço para
               alunos e professores utilizarem das mais novas tecnologias de
-              impressão 3D e outras tecnologias.
+              impressão 3D e outras tecnologias. 
               <span className="desktop">
                 No Espaço Maker, os alunos são incentivados a explorar sua
                 criatividade e a desenvolver habilidades práticas, aplicando
@@ -150,12 +148,8 @@ export default function LandingPage() {
                 estão disponíveis para orientar e auxiliar os alunos em seus
                 projetos, promovendo um ambiente colaborativo e de aprendizado
                 contínuo.
-              </span>
+                </span>
             </h3>
-            <div className="sobre-image-container">
-              <img src={espaco1} alt="a" className="sobre-image" />
-              <img src={espaco2} alt="a" className="sobre-image" />
-            </div>
           </div>
         </div>
         <div className="divider"></div>

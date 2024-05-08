@@ -275,15 +275,11 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 5vw;
-}
-
-.sobre-text {
-  width: 70%;
+  text-align: justify;
   font-size: 1.4em;
   line-height: 2;
-  font-weight: var(--semi-bold);
+  font-weight: var(--regular);
 }
-
 .sobre-image-container {
   display: flex;
   flex-direction: column;
