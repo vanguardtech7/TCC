@@ -126,9 +126,6 @@ export default function HeaderSidebar() {
         {menuOpen && (
           <>
             <div className="hs-modal-container">
-              <h1 className="modal-name">Nome Sobrenome</h1>
-              <h3 className="modal-cargo">Cargo</h3>
-              <div className="modal-divider"></div>
               <div className="modal-sair-container">
                 <div
                   className="hs-sub-container"

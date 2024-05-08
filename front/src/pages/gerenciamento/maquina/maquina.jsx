@@ -61,6 +61,7 @@ export default function Maquina() {
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">
+
           <h1 className="pedidos-title">{pathname}</h1>
           <button
             className="system-btn"
