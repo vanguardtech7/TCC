@@ -10,19 +10,12 @@ export default function CriarMaquina() {
 
   const [formData, setFormData] = useState({
     nome_maquina: "",
-<<<<<<< HEAD
-    capacidade: "",
-    modelo: "",
-    num: "",
-    especi: "",
-    energia: "",
-=======
     capacidade: 0.0,
     modelo: "",
     num_serie: "",
     especi: "",
     entrada_ener: "",
->>>>>>> eb0e464cee0bfadbdb8f884427279efda71ffa99
+
   });
 
   const handleChange = (e) => {
@@ -48,7 +41,7 @@ export default function CriarMaquina() {
         config
       );
       toast.success("Cadastro realizado com sucesso!");
-<<<<<<< HEAD
+
   
       setFormData({
         nome_maquina: "",
@@ -58,8 +51,8 @@ export default function CriarMaquina() {
         especi: "",
         energia: "",
       });
-=======
->>>>>>> eb0e464cee0bfadbdb8f884427279efda71ffa99
+
+
     } catch (error) {
       console.log("Erro", error);
       toast.warning("Erro ao cadastrar máquina!");
