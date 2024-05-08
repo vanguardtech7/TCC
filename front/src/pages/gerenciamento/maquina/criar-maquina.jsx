@@ -6,12 +6,12 @@ import axios from "axios";
 
 export default function CriarMaquina() {
   const [formData, setFormData] = useState({
-    nome: "",
-    capacidade: "",
+    nome_maquina: "",
+    capacidade: 0.0,
     modelo: "",
-    num: "",
-    especif: "",
-    energia: "",
+    num_serie: "",
+    especi: "",
+    entrada_ener: "",
   });
 
   const handleChange = (e) => {
@@ -23,6 +23,7 @@ export default function CriarMaquina() {
   };
   const handleCadastro = async () => {
     console.log(formData);
+    console.log(localStorage);
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -36,17 +37,9 @@ export default function CriarMaquina() {
         config
       );
       toast.success("Cadastro realizado com sucesso!");
-
-      setFormData({
-        nome: "",
-        capacidade: "",
-        modelo: "",
-        num: "",
-        especif: "",
-        energia: "",
-      });
     } catch (error) {
       console.log("Erro", error);
+      toast.warning("Erro ao cadastrar máquina!");
     }
   };
 
@@ -68,11 +61,11 @@ export default function CriarMaquina() {
           <div className="maquina">
             <div className="cadastrar-column">
               <div className="maquina-input">
-                <p className="cadastrar-label">Nome:</p>
+                <p className="cadastrar-label">Nome da Máquina:</p>
                 <M.TextField
                   fullWidth
-                  name="nome"
-                  value={formData.nome}
+                  name="nome_maquina"
+                  value={formData.nome_maquina}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
@@ -89,8 +82,8 @@ export default function CriarMaquina() {
                 <p className="cadastrar-label">Especificações:</p>
                 <M.TextField
                   fullWidth
-                  name="especif"
-                  value={formData.especif}
+                  name="especi"
+                  value={formData.especi}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
@@ -111,8 +104,8 @@ export default function CriarMaquina() {
                 <M.TextField
                   fullWidth
                   type="number"
-                  name="num"
-                  value={formData.num}
+                  name="num_serie"
+                  value={formData.num_serie}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
@@ -120,8 +113,8 @@ export default function CriarMaquina() {
                 <p className="cadastrar-label">Entrada de Energia:</p>
                 <M.TextField
                   fullWidth
-                  name="energia"
-                  value={formData.energia}
+                  name="entrada_ener"
+                  value={formData.entrada_ener}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
