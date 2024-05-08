@@ -5,12 +5,6 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
-  // let [nome, setNome] = useState('')
-  // let [capacidade, setCapacidade] = useState()
-  // let [modelo, setModelo] = useState('')
-  // let [num, setNum] = useState('')
-  // let [especif, setEspecif] = useState('')
-  // let [energia, setEnergia] = useState('')
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -56,7 +50,7 @@ export default function CriarMaquina() {
         console.log("Erro", error);
       }
     }
-  };
+  ;
 
   return (
     <div className="section-body">
