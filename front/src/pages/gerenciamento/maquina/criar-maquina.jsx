@@ -5,46 +5,58 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
+  // let [nome, setNome] = useState('')
+  // let [capacidade, setCapacidade] = useState()
+  // let [modelo, setModelo] = useState('')
+  // let [num, setNum] = useState('')
+  // let [especif, setEspecif] = useState('')
+  // let [energia, setEnergia] = useState('')
 
-  let [nome, setNome] = useState('')
-  let [capacidade, setCapacidade] = useState()
-  let [modelo, setModelo] = useState('')
-  let [num, setNum] = useState('')
-  let [especif, setEspecif] = useState('')
-  let [energia, setEnergia] = useState('')
+  const [formData, setFormData] = useState({
+    nome: "",
+    capacidade: "",
+    modelo: "",
+    num: "",
+    especif: "",
+    energia: "",
+  });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   const handleCadastro = async () => {
-    console.log('entrou no handle cadastro')
-    if (num === ''){
-      toast.warning('Numero de série obrigatório!!', {icon: '⚠'})
-      setNull()
-    } else{
-      try{
-        const response = await axios.post(
-          "https://aware-clam-teddy.cyclic.app/maquinas",
-          {
-            nome_maquina: nome,
-            capacidade: capacidade,
-            modelo: modelo,
-            num_serie: num,
-            especi: especif,
-            entrada_ener: energia
-          })
-          toast.success('Cadastro realizado com sucesso!')
-      } catch(error){
-        console.log('Erro', error)
+    console.log(formData)
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        await axios.post(
+          "https://techprint-1.onrender.com/maquinas",
+          formData,
+          config
+        );
+        toast.success("Cadastro realizado com sucesso!");
+
+        setFormData({
+          nome: "",
+          capacidade: "",
+          modelo: "",
+          num: "",
+          especif: "",
+          energia: "",
+        });
+      } catch (error) {
+        console.log("Erro", error);
       }
     }
-  }
-
-  const setNull = () => {
-    setCapacidade("")
-    setNome("")
-    setNum("")
-    setEspecif("")
-    setEnergia("")
-    setModelo("")
-  }
+  };
 
   return (
     <div className="section-body">
@@ -65,45 +77,72 @@ export default function CriarMaquina() {
             <div className="cadastrar-column">
               <div className="maquina-input">
                 <p className="cadastrar-label">Nome:</p>
-                <M.TextField fullWidth
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}></M.TextField>
+                <M.TextField
+                  fullWidth
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">Modelo:</p>
-                <M.TextField fullWidth 
-                value={modelo}
-                onChange={(e) => setModelo(e.target.value)}></M.TextField>
+                <M.TextField
+                  fullWidth
+                  name="modelo"
+                  value={formData.modelo}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">Especificações:</p>
-                <M.TextField fullWidth
-                value={especif}
-                onChange={(e) => setEspecif(e.target.value)}></M.TextField>
+                <M.TextField
+                  fullWidth
+                  name="especif"
+                  value={formData.especif}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
             </div>
             <div className="cadastrar-column">
-            <div className="maquina-input">
+              <div className="maquina-input">
                 <p className="cadastrar-label">Capacidade:</p>
-                <M.TextField type="number" fullWidth value={capacidade}
-                onChange={(e) => setCapacidade(e.target.value)}></M.TextField>
+                <M.TextField
+                  type="number"
+                  fullWidth
+                  name="capacidade"
+                  value={formData.capacidade}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">Número de série:</p>
-                <M.TextField fullWidth value={num}
-                onChange={(e) => setNum(e.target.value)}></M.TextField>
+                <M.TextField
+                  fullWidth
+                  type="number"
+                  name="num"
+                  value={formData.num}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
               <div className="maquina-input">
                 <p className="cadastrar-label">Entrada de Energia:</p>
-                <M.TextField fullWidth value={energia}
-                onChange={(e) => setEnergia(e.target.value)}></M.TextField>
+                <M.TextField
+                  fullWidth
+                  name="energia"
+                  value={formData.energia}
+                  onChange={handleChange}
+                ></M.TextField>
               </div>
-              
             </div>
           </div>
-          <button className="system-btn cadastrar-btn" onClick={() => {
-            handleCadastro()
-          }}>Cadastrar</button>
+          <button
+            className="system-btn cadastrar-btn"
+            onClick={() => {
+              handleCadastro();
+            }}
+          >
+            Cadastrar
+          </button>
         </div>
       </div>
     </div>

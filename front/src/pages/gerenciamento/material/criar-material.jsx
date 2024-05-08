@@ -30,11 +30,11 @@ export default function CriarMaterial() {
         },
       };
       await axios.post(
-        "https://aware-clam-teddy.cyclic.app/materiais",
+        "https://techprint-1.onrender.com/materiais",
         formData,
         config
       );
-      toast.success("Material Cadastrado com Sucesso!")
+      toast.success("Material Cadastrado com Sucesso!");
       console.log("Material cadastrado com sucesso!");
       // Limpar os campos após o envio bem-sucedido
       setFormData({
@@ -45,16 +45,14 @@ export default function CriarMaterial() {
         peso: "",
       });
     } catch (error) {
-      toast.warning("Erro ao cadastrar material!")
+      toast.warning("Erro ao cadastrar material!");
     }
   };
 
   return (
     <div className="section-body">
-      <ToastContainer/>
-      
-
-            <HeaderSidebar />
+      <ToastContainer />
+      <HeaderSidebar />
       <div className="section-container">
         <div className="cadastrar-container">
           <h1 className="cadastrar-title">Cadastrar Novo Material</h1>

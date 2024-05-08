@@ -17,7 +17,7 @@ export default function Perfis() {
   useEffect(() => {
     async function fetchPerfis() {
       try {
-        const response = await fetch("https://aware-clam-teddy.cyclic.app/usuarios");
+        const response = await fetch("https://techprint-1.onrender.com/usuarios");
         if (!response.ok) {
           throw new Error("Falha ao carregar os perfis");
         }
@@ -34,7 +34,7 @@ export default function Perfis() {
   // Função para excluir um perfil
   const deletePerfil = async (email) => {
     try {
-      const response = await fetch(`https://aware-clam-teddy.cyclic.app/usuarios/${email}`, {
+      const response = await fetch(`https://techprint-1.onrender.com/usuarios/${email}`, {
         method: "DELETE",
       });
       if (!response.ok) {

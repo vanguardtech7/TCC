@@ -28,7 +28,7 @@ export default function Login(props) {
     } else {
       try {
         const response = await axios.post(
-          "https://aware-clam-teddy.cyclic.app/login",
+          "https://techprint-1.onrender.com/login",
           { email, senha }
         );
         const { token } = response.data; // Extrai o token da resposta

@@ -31,7 +31,7 @@ export default function Cadastro() {
     } else {
       try {
         const response = await axios.post(
-          "https://aware-clam-teddy.cyclic.app/cadastro-user",
+          "https://techprint-1.onrender.com/cadastro-user",
           { email, nome, senha, sala, cargo }
         );
         setTimeout(() => setShowLoading(false), 3000)

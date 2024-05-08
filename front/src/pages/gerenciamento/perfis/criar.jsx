@@ -36,7 +36,7 @@ export default function CriarPerfil() {
           },
         };
         await axios.post(
-          "https://aware-clam-teddy.cyclic.app/cadastro-gestor",
+          "https://techprint-1.onrender.com/cadastro-gestor",
           formData,
           config
         );

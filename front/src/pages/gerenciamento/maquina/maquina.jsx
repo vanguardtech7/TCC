@@ -21,7 +21,7 @@ export default function Maquina() {
 
   const fetchMaquinas = () => {
     axios
-      .get("https://aware-clam-teddy.cyclic.app/maquinas")
+      .get("https://techprint-1.onrender.com/maquinas")
       .then((response) => {
         setMaquinas(response.data);
       })
@@ -37,7 +37,7 @@ export default function Maquina() {
 
     axios
       .delete(
-        `https://aware-clam-teddy.cyclic.app/maquinas/${maquinaSelecionada.id}`,
+        `https://techprint-1.onrender.com/maquinas/${maquinaSelecionada.id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Adicione o token ao cabeçalho Authorization
