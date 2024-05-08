@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as MI from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
-import axios from "axios"; // Importe o Axios
+import axios from "axios";
 
 export default function Material() {
   const location = useLocation("");
@@ -36,7 +36,7 @@ export default function Material() {
 
     axios.delete(`https://techprint-1.onrender.com/materiais/${materialToDelete.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}` // Adicione o token ao cabeçalho Authorization
+        Authorization: `Bearer ${localStorage.getItem("token")}` 
       }
     })
       .then(() => {

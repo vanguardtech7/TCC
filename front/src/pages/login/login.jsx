@@ -15,7 +15,7 @@ export default function Login(props) {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token")); // Estado para armazenar o token
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const [showLoading, setShowLoading] = useState(false);
 

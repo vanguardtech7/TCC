@@ -13,11 +13,11 @@ export default function CriarMaquina() {
   // let [energia, setEnergia] = useState('')
 
   const [formData, setFormData] = useState({
-    nome: "",
+    nome_maquina: "",
     capacidade: "",
     modelo: "",
     num: "",
-    especif: "",
+    especi: "",
     energia: "",
   });
 
@@ -45,11 +45,11 @@ export default function CriarMaquina() {
       toast.success("Cadastro realizado com sucesso!");
   
       setFormData({
-        nome: "",
+        nome_maquina: "",
         capacidade: "",
         modelo: "",
         num: "",
-        especif: "",
+        especi: "",
         energia: "",
       });
     } catch (error) {
@@ -79,8 +79,8 @@ export default function CriarMaquina() {
                 <p className="cadastrar-label">Nome:</p>
                 <M.TextField
                   fullWidth
-                  name="nome"
-                  value={formData.nome}
+                  name="nome_maquina"
+                  value={formData.nome_maquina}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
@@ -97,8 +97,8 @@ export default function CriarMaquina() {
                 <p className="cadastrar-label">Especificações:</p>
                 <M.TextField
                   fullWidth
-                  name="especif"
-                  value={formData.especif}
+                  name="especi"
+                  value={formData.especi}
                   onChange={handleChange}
                 ></M.TextField>
               </div>
