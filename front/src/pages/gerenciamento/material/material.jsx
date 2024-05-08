@@ -20,7 +20,7 @@ export default function Material() {
   }, []);
 
   const fetchMaterials = () => {
-    axios.get("https://aware-clam-teddy.cyclic.app/materiais")
+    axios.get("https://techprint-1.onrender.com/materiais")
       .then((response) => {
         setMaterials(response.data);
       })
@@ -34,7 +34,7 @@ export default function Material() {
   const handleDelete = () => {
     if (!materialToDelete) return;
 
-    axios.delete(`https://aware-clam-teddy.cyclic.app/materiais/${materialToDelete.id}`, {
+    axios.delete(`https://techprint-1.onrender.com/materiais/${materialToDelete.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}` // Adicione o token ao cabeçalho Authorization
       }

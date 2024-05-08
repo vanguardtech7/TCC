@@ -29,34 +29,34 @@ export default function CriarMaquina() {
     }));
   };
   const handleCadastro = async () => {
-    console.log(formData)
-      try {
-        const token = localStorage.getItem("token");
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        await axios.post(
-          "https://techprint-1.onrender.com/maquinas",
-          formData,
-          config
-        );
-        toast.success("Cadastro realizado com sucesso!");
-
-        setFormData({
-          nome: "",
-          capacidade: "",
-          modelo: "",
-          num: "",
-          especif: "",
-          energia: "",
-        });
-      } catch (error) {
-        console.log("Erro", error);
-      }
+    console.log(formData);
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios.post(
+        "https://techprint-1.onrender.com/maquinas",
+        formData,
+        config
+      );
+      toast.success("Cadastro realizado com sucesso!");
+  
+      setFormData({
+        nome: "",
+        capacidade: "",
+        modelo: "",
+        num: "",
+        especif: "",
+        energia: "",
+      });
+    } catch (error) {
+      console.log("Erro", error);
     }
   };
+  
 
   return (
     <div className="section-body">
