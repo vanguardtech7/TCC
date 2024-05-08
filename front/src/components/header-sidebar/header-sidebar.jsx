@@ -119,7 +119,7 @@ export default function HeaderSidebar() {
               }}
               className="hs-active"
             >
-              <Avatar>A</Avatar>
+              <Avatar/>
             </p>
           </div>
         </div>

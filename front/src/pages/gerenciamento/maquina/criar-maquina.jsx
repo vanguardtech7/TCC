@@ -1,10 +1,13 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
+import BackButton from "../../../components/back-button/back-button";
 import * as M from "@mui/material";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
+
+
   const [formData, setFormData] = useState({
     nome_maquina: "",
     capacidade: 0.0,
@@ -57,7 +60,10 @@ export default function CriarMaquina() {
       />
       <div className="section-container">
         <div className="cadastrar-container">
-          <h1 className="cadastrar-title">Cadastrar Nova Máquina</h1>
+          <div className="back-container">
+            <BackButton/>
+            <h1 className="cadastrar-title">Cadastrar Nova Máquina</h1>
+          </div>
           <div className="maquina">
             <div className="cadastrar-column">
               <div className="maquina-input">

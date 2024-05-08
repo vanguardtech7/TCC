@@ -2,7 +2,7 @@ import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
-import * as MI from "@mui/icons-material";
+import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
 import axios from "axios"; // Importe o Axios
 
@@ -90,7 +90,7 @@ export default function Material() {
                     }}
                     style={{ cursor: "pointer" }}
                   >
-                    <MI.Delete />
+                    <I.Trash />
                   </M.TableCell>
                 </M.TableRow>
               ))}

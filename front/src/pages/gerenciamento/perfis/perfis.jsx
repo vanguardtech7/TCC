@@ -17,7 +17,9 @@ export default function Perfis() {
   useEffect(() => {
     async function fetchPerfis() {
       try {
-        const response = await fetch("https://techprint-1.onrender.com/usuarios");
+        const response = await fetch(
+          "https://techprint-1.onrender.com/usuarios"
+        );
         if (!response.ok) {
           throw new Error("Falha ao carregar os perfis");
         }
@@ -34,9 +36,12 @@ export default function Perfis() {
   // Função para excluir um perfil
   const deletePerfil = async (email) => {
     try {
-      const response = await fetch(`https://techprint-1.onrender.com/usuarios/${email}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://techprint-1.onrender.com/usuarios/${email}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error("Falha ao excluir o perfil");
       }
@@ -58,20 +63,19 @@ export default function Perfis() {
           </button>
         </div>
 
-        <M.TableContainer component={Paper} className="table-container" sx={{ maxHeight: 640 }}>
+        <M.TableContainer
+          component={Paper}
+          className="table-container"
+          sx={{ maxHeight: 640 }}
+        >
           <M.Table aria-label="simple table" stickyHeader>
-            <M.TableHead >
+            <M.TableHead>
               <M.TableRow>
-                <M.TableCell><b>Id</b></M.TableCell>
-                <M.TableCell><b>Nome</b></M.TableCell>
-                <M.TableCell align="left"><b>Email</b></M.TableCell>
-                <M.TableCell align="left"><b>Cargo</b></M.TableCell>
-                <M.TableCell align="center">
-                  <b></b>
-                </M.TableCell>
-                <M.TableCell align="center">
-                  <b></b>
-                </M.TableCell>
+                <M.TableCell>ID</M.TableCell>
+                <M.TableCell>Nome</M.TableCell>
+                <M.TableCell align="left">Email</M.TableCell>
+                <M.TableCell align="left">Cargo</M.TableCell>
+                <M.TableCell align="center">#</M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
@@ -82,10 +86,17 @@ export default function Perfis() {
                     {perfil.nome}
                   </M.TableCell>
                   <M.TableCell align="left">{perfil.email}</M.TableCell>
-                  <M.TableCell align="left">{perfil.cargo || "Gestor"}</M.TableCell>
-       
+                  <M.TableCell align="left">
+                    {perfil.cargo || "Gestor"}
+                  </M.TableCell>
+
                   <M.TableCell align="center" style={{ cursor: "pointer" }}>
-                    <I.Trash onClick={() => { setPerfilToDelete(perfil.email); setModalOpen(true); }} />
+                    <I.Trash
+                      onClick={() => {
+                        setPerfilToDelete(perfil.email);
+                        setModalOpen(true);
+                      }}
+                    />
                   </M.TableCell>
                 </M.TableRow>
               ))}

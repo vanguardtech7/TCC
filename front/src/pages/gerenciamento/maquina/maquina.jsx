@@ -2,7 +2,7 @@ import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
-import * as MI from "@mui/icons-material";
+import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
 import axios from "axios"; 
 
@@ -75,22 +75,22 @@ export default function Maquina() {
           <M.Table aria-label="simple table">
             <M.TableHead>
               <M.TableRow>
-                <M.TableCell>ID</M.TableCell>
+                {/* <M.TableCell>ID</M.TableCell> */}
                 <M.TableCell align="left">Nome</M.TableCell>
                 <M.TableCell align="left">Modelo</M.TableCell>
                 <M.TableCell align="left">Capacidade</M.TableCell>
                 <M.TableCell align="left">Numero de Série</M.TableCell>
                 <M.TableCell align="left">Entrada de Energia</M.TableCell>
                 <M.TableCell align="left">Especificações</M.TableCell>
-                <M.TableCell align="center">\\</M.TableCell>
+                <M.TableCell align="center">#</M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
               {maquinas.map((maquina) => (
                 <M.TableRow key={maquina.id}>
-                  <M.TableCell component="th" scope="row">
+                  {/* <M.TableCell component="th" scope="row">
                     {maquina.id}
-                  </M.TableCell>
+                  </M.TableCell> */}
                   <M.TableCell align="left">{maquina.nome_maquina}</M.TableCell>
                   <M.TableCell align="left">{maquina.modelo}</M.TableCell>
                   <M.TableCell align="left">{maquina.capacidade}</M.TableCell>
@@ -105,7 +105,7 @@ export default function Maquina() {
                     }}
                     style={{ cursor: "pointer" }}
                   >
-                    <MI.Delete />
+                    <I.Trash />
                   </M.TableCell>
                 </M.TableRow>
               ))}

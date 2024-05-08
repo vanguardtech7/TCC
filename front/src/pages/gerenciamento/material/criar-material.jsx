@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios"; // Importe o axios
 import { ToastContainer, toast } from "react-toastify";
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
+import BackButton from '../../../components/back-button/back-button'
 import * as M from "@mui/material";
 
 export default function CriarMaterial() {
@@ -55,7 +56,10 @@ export default function CriarMaterial() {
       <HeaderSidebar />
       <div className="section-container">
         <div className="cadastrar-container">
-          <h1 className="cadastrar-title">Cadastrar Novo Material</h1>
+        <div className="back-container">
+            <BackButton/>
+            <h1 className="cadastrar-title">Cadastrar Novo Material</h1>
+          </div>
           <div className="maquina">
             <div className="cadastrar-column">
               <div className="maquina-input">

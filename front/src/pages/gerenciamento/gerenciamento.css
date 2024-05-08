@@ -79,6 +79,20 @@
   
 }
 
+.back-container{
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+.back-container button{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
 .system-btn{
   font-family: var(--dm-sans);
   font-weight: var(--bold);
