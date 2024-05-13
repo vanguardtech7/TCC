@@ -18,7 +18,7 @@ import impressora2 from "../../assets/images/impressora2.svg";
 import impressora3 from "../../assets/images/impressora3.svg";
 import tutorial1 from "../../assets/images/tutorial1.svg";
 import tutorial2 from "../../assets/images/tutorial2.svg";
-import tutorial3 from "../../assets/images/tutorial3.svg";
+import tutorial3 from "../../assets/images/tutorial3.png";
 import tutorial4 from "../../assets/images/tutorial4.svg";
 import vanguardLogo from "../../assets/images/vanguard-logo.svg";
 

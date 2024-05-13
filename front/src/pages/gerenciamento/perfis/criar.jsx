@@ -49,6 +49,7 @@ export default function CriarPerfil() {
           senha: "",
         });
       } catch (error) {
+        toast.warning("erro")
         console.log(error);
         console.log("Erro!", formData);
       }

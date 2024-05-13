@@ -86,8 +86,6 @@ label {
   padding: 0;
 }
 
-
-
 .login-info {
   color: var(--shy-moment);
   padding: 5vh 1vw;
@@ -110,6 +108,10 @@ label {
   font-weight: var(--bold);
 }
 
+.login-link:hover {
+  text-decoration: underline;
+}
+
 .cadastro-container {
   width: 90%;
   align-self: center;
@@ -129,12 +131,16 @@ label {
   color: var(--doctor);
 }
 
-.login-text{
-    cursor: default;
-    margin-top: 10vh;
-    font-weight: var(--regular);
-    font-size: 1.2em;
-    text-align: center;
+.login-text {
+  cursor: default;
+  margin-top: 10vh;
+  font-weight: var(--regular);
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.login-text:hover {
+  text-decoration: none;
 }
 
 @media screen and (min-device-width: 1270px) and (max-device-width: 1600px) {
@@ -145,7 +151,6 @@ label {
   .form-container {
     gap: 2vh;
   }
-
 
   .login-links-container {
     text-wrap: nowrap;
@@ -169,12 +174,11 @@ label {
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 576px) {
-
-  .body{
+  .body {
     background-image: none;
   }
 
-  .login-sidebar{
+  .login-sidebar {
     width: 100%;
   }
 }

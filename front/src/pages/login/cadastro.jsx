@@ -22,10 +22,10 @@ export default function Cadastro() {
 
   const handleCadastro = async () => {
     console.log(`entrou na funcao`);
-    setShowLoading(true);
+    setShowLoading(false);
 
     if (email == "" || senha == "") {
-      console.log('entrou no if de validaçao')
+      console.log("entrou no if de validaçao");
       toast.warn("Preencha todos os campos!");
       setShowLoading(false);
     } else {
@@ -34,9 +34,8 @@ export default function Cadastro() {
           "https://techprint-1.onrender.com/cadastro-user",
           { email, nome, senha, sala, cargo }
         );
-        setTimeout(() => setShowLoading(false), 3000)
+        setTimeout(() => setShowLoading(false), 3000);
         console.log(nome, email, cargo, sala, senha);
-
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
         toast.error("Erro ao cadastrar. Por favor, tente novamente.");
@@ -50,9 +49,7 @@ export default function Cadastro() {
 
   return (
     <body className="body">
-      <ToastContainer
-        position="bottom-left"
-      />
+      <ToastContainer position="bottom-left" />
       <HeaderLogin />
       <aside className="login-sidebar">
         <h1 className="login-title">Cadastro</h1>
