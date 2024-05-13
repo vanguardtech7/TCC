@@ -6,8 +6,6 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 export default function CriarMaquina() {
-
-
   const [formData, setFormData] = useState({
     nome_maquina: "",
     capacidade: 0.0,
@@ -15,7 +13,6 @@ export default function CriarMaquina() {
     num_serie: "",
     especi: "",
     entrada_ener: "",
-
   });
 
   const handleChange = (e) => {
@@ -42,7 +39,6 @@ export default function CriarMaquina() {
       );
       toast.success("Cadastro realizado com sucesso!");
 
-  
       setFormData({
         nome_maquina: "",
         capacidade: "",
@@ -51,8 +47,6 @@ export default function CriarMaquina() {
         especi: "",
         energia: "",
       });
-
-
     } catch (error) {
       console.log("Erro", error);
       toast.warning("Erro ao cadastrar máquina!");
@@ -74,7 +68,7 @@ export default function CriarMaquina() {
       <div className="section-container">
         <div className="cadastrar-container">
           <div className="back-container">
-            <BackButton/>
+            <BackButton />
             <h1 className="cadastrar-title">Cadastrar Nova Máquina</h1>
           </div>
           <div className="maquina">

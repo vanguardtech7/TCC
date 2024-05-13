@@ -1,7 +1,11 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../db/conexao'); 
+const sequelize = require('../db/conexao');
 
 const pedidos = sequelize.define('pedidos', {
+  nome_pedido: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   data: {
     type: DataTypes.DATE,
     allowNull: false
@@ -14,8 +18,8 @@ const pedidos = sequelize.define('pedidos', {
     type: DataTypes.TIME,
     allowNull: false
   },
-  impre_usando: {
-    type: DataTypes.STRING,
+  user_id: { // Novo campo para armazenar o ID do usuário
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 }, {
@@ -23,7 +27,5 @@ const pedidos = sequelize.define('pedidos', {
   freezeTableName: true
 });
 
-pedidos.sync()
+pedidos.sync();
 module.exports = pedidos;
-
-//------------------------------------------------------------------------------------------------------------------
