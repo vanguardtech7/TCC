@@ -48,7 +48,7 @@ export default function EsqueciSenha() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <p className="login-link login-text">Um Email será direcionando para que consiga redefinir a senha de sua conta.</p>
+              <p className="login-link login-text">Um Email será direcionado para que consiga redefinir a senha de sua conta.</p>
             </div>
           </div>
           <button className="login-button" onClick={handleEnviarEmail}>Enviar Email</button>
