@@ -41,7 +41,7 @@ export default function Agendamento() {
         formData,
         config
       );
-      toast.success("Pedido feito com sucesso!");
+      toast.success("Pedido realizado com sucesso!");
       setFormData({
         nome_pedido: "",
         data: "",
@@ -50,7 +50,7 @@ export default function Agendamento() {
       });
     } catch (error) {
       console.log(error);
-      toast.warning("Erro ao fazer o pedido");
+      toast.error("Erro ao fazer o pedido");
     }
   };
 
@@ -135,7 +135,6 @@ export default function Agendamento() {
             </button>
           </div>
         </div>
-        {/* <img src={asideImage} alt="" className="aside-image" /> */}
       </div>
     </X.LocalizationProvider>
   );
