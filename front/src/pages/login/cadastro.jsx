@@ -22,23 +22,26 @@ export default function Cadastro() {
 
   const handleCadastro = async () => {
     console.log(`entrou na funcao`);
-    setShowLoading(false);
+    setShowLoading(true);
 
     if (email == "" || senha == "") {
       console.log("entrou no if de validaçao");
       toast.warn("Preencha todos os campos!");
-      setShowLoading(false);
+      setShowLoading(true);
     } else {
       try {
         const response = await axios.post(
           "https://techprint-1.onrender.com/cadastro-user",
           { email, nome, senha, sala, cargo }
         );
-        setTimeout(() => setShowLoading(false), 3000);
-        console.log(nome, email, cargo, sala, senha);
+        toast.success("Cadastrado com sucesso!");
+        setShowLoading(false);
+        console.log(nome, email, cargo, sala);
+        nav("/login");
       } catch (error) {
-        console.error("Erro ao cadastrar:", error);
-        toast.error("Erro ao cadastrar. Por favor, tente novamente.");
+        console.error(error);
+        toast.error("Erro ao cadastrar! Verifique as informações.");
+        setShowLoading(false);
       }
     }
   };
