@@ -14,19 +14,7 @@ function App() {
 
   return (
     <div>
-      {loading ? (
-        <div className="app">
-          <div class="spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      ) : (
-        <Outlet />
-      )}
+     <Outlet/>
     </div>
   );
 }
