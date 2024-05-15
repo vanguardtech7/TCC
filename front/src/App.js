@@ -14,7 +14,19 @@ function App() {
 
   return (
     <div>
-     <Outlet/>
+     {loading ? (
+        <div className="app">
+          <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 }
