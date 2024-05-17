@@ -1,36 +1,35 @@
-
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import * as M from "@mui/material";
-import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
-import '../gerenciamento.css'
+import '../gerenciamento.css';
 
 export default function Pedidos() {
-  const location = useLocation("");
+  const location = useLocation();
   var pathname = location.pathname.split("/");
-  var pathname = location.pathname.replace("%20", " ").replace("/", "");
+  pathname = location.pathname.replace("%20", " ").replace("/", "");
 
-  function createData(id, data, descricao) {
-    return { id, data, descricao};
-  }
-
-  const rows = [
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor"),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",),
-    createData(1, "12/02/2024", "Lorem Ipsum Dolor",)
-  ];
-
+  const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
   const nav = useNavigate();
+
+  useEffect(() => {
+    axios.get('https://techprint-1.onrender.com/pedidos')
+      .then(response => {
+        const data = response.data;
+        const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.data, item.descri, item.tempo_impre));
+        setRows(formattedData);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the pedidos!", error);
+      });
+  }, []);
+
+  function createData(id, nome_pedido, data, descri, tempo_impre) {
+    return { id, nome_pedido, data, descri, tempo_impre };
+  }
 
   return (
     <div className="section-body">
@@ -42,21 +41,23 @@ export default function Pedidos() {
 
         <M.TableContainer component={Paper} className="table-container" sx={{ maxHeight: 640 }}>
           <M.Table aria-label="simple table" stickyHeader>
-            <M.TableHead >
+            <M.TableHead>
               <M.TableRow>
                 <M.TableCell><b>Id</b></M.TableCell>
+                <M.TableCell><b>Nome do Pedido</b></M.TableCell>
                 <M.TableCell><b>Data</b></M.TableCell>
-                <M.TableCell align="center"><b>Descrição</b></M.TableCell>
+                <M.TableCell><b>Descrição</b></M.TableCell>
+                <M.TableCell><b>Tempo de Impressão</b></M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
               {rows.map((row) => (
-                <M.TableRow key={row.data}>
+                <M.TableRow key={row.id}>
                   <M.TableCell>{row.id}</M.TableCell>
-                  <M.TableCell component="th" scope="row">
-                    {row.data}
-                  </M.TableCell>
-                  <M.TableCell align="center">{row.descricao}</M.TableCell>
+                  <M.TableCell>{row.nome_pedido}</M.TableCell>
+                  <M.TableCell>{row.data}</M.TableCell>
+                  <M.TableCell>{row.descri}</M.TableCell>
+                  <M.TableCell>{row.tempo_impre}</M.TableCell>
                 </M.TableRow>
               ))}
             </M.TableBody>
@@ -65,7 +66,6 @@ export default function Pedidos() {
       </div>
       {modalOpen && (
         <>
-
           <div className="modal-excluir-container">
             <h1 className="modal-title">Tem certeza?</h1>
             <div className="modal-divider"></div>
