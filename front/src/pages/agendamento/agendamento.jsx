@@ -29,6 +29,13 @@ export default function Agendamento() {
 
   const handleAgend = async () => {
     console.log("entrou no handleAgend", formData);
+
+    // Verificação se algum campo está vazio
+    if (!formData.nome_pedido || !formData.data || !formData.descri || !formData.tempo_impre) {
+      toast.error("Por favor, preencha todos os campos antes de enviar.");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -36,9 +43,20 @@ export default function Agendamento() {
           Authorization: `Bearer ${token}`,
         },
       };
+
+      console.log("Dados enviados:", formData);
+
+      // Transformando o formData para adequá-lo à estrutura esperada pela API
+      const formDataToSend = {
+        nome: formData.nome_pedido,
+        data: formData.data,
+        descri: formData.descri,
+        tempo_impre: formData.tempo_impre,
+      };
+
       await axios.post(
         "https://techprint-1.onrender.com/pedidos",
-        formData,
+        formDataToSend,
         config
       );
       toast.success("Pedido realizado com sucesso!");
@@ -49,7 +67,7 @@ export default function Agendamento() {
         tempo_impre: "",
       });
     } catch (error) {
-      console.log(error);
+      console.error("Erro na requisição:", error);
       toast.error("Erro ao fazer o pedido");
     }
   };
@@ -127,9 +145,7 @@ export default function Agendamento() {
             </div>
             <button
               className="system-btn agendamento-btn"
-              onClick={() => {
-                handleAgend();
-              }}
+              onClick={handleAgend}
             >
               Enviar Projeto
             </button>
