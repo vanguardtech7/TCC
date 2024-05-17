@@ -1,5 +1,7 @@
 .body {
+  width: 100%;
   max-height: 100vh;
+  overflow-y: hidden;
   background-image: url("../../assets/images/background-image.png");
   background-repeat: no-repeat;
   background-size: 80%;
@@ -15,6 +17,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.redefinir{
+  background-position: right;
+
+}
+
+.redefinir-sidebar{
+  width: 22vw;
+  height: 90vh;
+  align-items: right;
+  background-color: var(--washed-black);
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
 }
 
 .aside-sub-container {
@@ -135,8 +152,9 @@ label {
   cursor: default;
   margin-top: 10vh;
   font-weight: var(--regular);
-  font-size: 1.2em;
+  font-size: 1em;
   text-align: center;
+  width: 100%;
 }
 
 .login-text:hover {
