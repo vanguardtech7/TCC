@@ -1,46 +1,41 @@
 import HeaderSidebar from "../../components/header-sidebar/header-sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
 
 export default function MeusPedidos() {
-  const location = useLocation("");
+  const location = useLocation();
   var pathname = location.pathname.split("/");
-  var pathname = location.pathname.replace("%20", " ").replace("/", "");
+  pathname = location.pathname.replace("%20", " ").replace("/", "");
 
-  function createData(id, nome, email, cargo) {
-    return { id, nome, email, cargo };
-  }
-
-  const rows = [
-    createData(1, "Ágatha Costa", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Luan Almeida", "email.exemplo@email.com", "Professor"),
-    createData(1, "Martim Santos", "email.exemplo@email.com", "Coordenador"),
-    createData(
-      1,
-      "Letícia Ferreira ",
-      "email.exemplo@email.com",
-      "Funcionário"
-    ),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-    createData(1, "Joao Ferreira", "email.exemplo@email.com", "Aluno"),
-  ];
-
+  const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
   const nav = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Obtenha o token do local storage
+
+    axios.get('https://techprint-1.onrender.com/meus-pedidos', {
+      headers: {
+        Authorization: `Bearer ${token}` // Envie o token no cabeçalho da requisição
+      }
+    })
+      .then(response => {
+        const data = response.data;
+        const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.data, item.descri, item.tempo_impre));
+        setRows(formattedData);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the meus-pedidos!", error);
+      });
+  }, []);
+
+  function createData(id, nome_pedido, data, descri, tempo_impre) {
+    return { id, nome_pedido, data, descri, tempo_impre };
+  }
 
   return (
     <div className="section-body">
@@ -50,45 +45,26 @@ export default function MeusPedidos() {
           <h1 className="pedidos-title">{pathname}</h1>
         </div>
 
-        <M.TableContainer
-          component={Paper}
-          className="table-container"
-          sx={{ maxHeight: 640 }}
-        >
+        <M.TableContainer component={Paper} className="table-container" sx={{ maxHeight: 640 }}>
           <M.Table aria-label="simple table" stickyHeader>
             <M.TableHead>
               <M.TableRow>
-                <M.TableCell>
-                  <b>Id</b>
-                </M.TableCell>
-                <M.TableCell>
-                  <b>Nome</b>
-                </M.TableCell>
-                <M.TableCell align="left">
-                  <b>Email</b>
-                </M.TableCell>
-                <M.TableCell align="left">
-                  <b>Cargo</b>
-                </M.TableCell>
-                <M.TableCell align="center">
-                  <b></b>
-                </M.TableCell>
-                <M.TableCell align="center">
-                  <b></b>
-                </M.TableCell>
+                <M.TableCell><b>Id</b></M.TableCell>
+                <M.TableCell><b>Nome do Pedido</b></M.TableCell>
+                <M.TableCell><b>Data</b></M.TableCell>
+                <M.TableCell><b>Descrição</b></M.TableCell>
+                <M.TableCell><b>Tempo de Impressão</b></M.TableCell>
+                <M.TableCell align="center"><b>Ações</b></M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
               {rows.map((row) => (
-                <M.TableRow key={row.nome}>
+                <M.TableRow key={row.id}>
                   <M.TableCell>{row.id}</M.TableCell>
-                  <M.TableCell component="th" scope="row">
-                    {row.nome}
-                  </M.TableCell>
-                  <M.TableCell align="left">{row.email}</M.TableCell>
-                  <M.TableCell align="left">{row.cargo}</M.TableCell>
-                  <M.TableCell align="center" style={{ cursor: "pointer" }}>
-                  </M.TableCell>
+                  <M.TableCell>{row.nome_pedido}</M.TableCell>
+                  <M.TableCell>{row.data}</M.TableCell>
+                  <M.TableCell>{row.descri}</M.TableCell>
+                  <M.TableCell>{row.tempo_impre}</M.TableCell>
                   <M.TableCell align="center" style={{ cursor: "pointer" }}>
                     <I.Trash
                       onClick={() => {
@@ -129,12 +105,7 @@ export default function MeusPedidos() {
               </button>
             </div>
           </div>
-          <div
-            className="hs-overlay"
-            onClick={() => {
-              setModalOpen(!modalOpen);
-            }}
-          ></div>
+          <div className="hs-overlay" onClick={() => { setModalOpen(!modalOpen) }}></div>
         </>
       )}
     </div>
