@@ -21,23 +21,22 @@ export default function Cadastro() {
   const [showLoading, setShowLoading] = useState(false);
 
   const handleCadastro = async () => {
-    console.log(`entrou na funcao`);
     setShowLoading(true);
 
-    if (email == "" || senha == "") {
+    if (email == "" || senha == "", nome == '' || cargo == '') {
       console.log("entrou no if de validaçao");
-      toast.warn("Preencha todos os campos!");
-      setShowLoading(true);
+      setShowLoading(false);
+      toast.warn("Preencha todos os campos!", {autoClose: 2000});
     } else {
       try {
         const response = await axios.post(
           "https://techprint-1.onrender.com/cadastro-user",
           { email, nome, senha, sala, cargo }
         );
-        toast.success("Cadastrado com sucesso!");
+        toast.success("Cadastrado com sucesso! Redirecionando para a página de Login.");
         setShowLoading(false);
         console.log(nome, email, cargo, sala);
-        nav("/login");
+        setTimeout(() => {nav('/login')}, 3000)
       } catch (error) {
         console.error(error);
         toast.error("Erro ao cadastrar! Verifique as informações.");
@@ -52,7 +51,7 @@ export default function Cadastro() {
 
   return (
     <body className="body">
-      <ToastContainer position="bottom-left" />
+      <ToastContainer position="bottom-right" pauseOnHover={false}/>
       <HeaderLogin />
       <aside className="login-sidebar">
         <h1 className="login-title">Cadastro</h1>
