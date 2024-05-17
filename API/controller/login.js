@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const Usuario = require('../models/usuarios'); // Importe o modelo de usuário
 const Gestor = require('../models/gestor'); // Importe o modelo de gestor
 
 exports.login = async (req, res) => {
   try {
     const { email, senha } = req.body; // Adicione "token" ao destructuring
-
-    // Aqui você pode usar o token conforme necessário no restante do seu código
 
     let user;
 
@@ -31,8 +30,9 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Usuário ou senha incorreto' });
     }
 
-    // Verifique se a senha está correta
-    if (user.senha !== senha) {
+    // Verifique se a senha está correta usando bcrypt
+    const isPasswordValid = await bcrypt.compare(senha, user.senha);
+    if (!isPasswordValid) {
       return res.status(401).json({ message: 'Usuário ou senha incorreto' });
     }
 

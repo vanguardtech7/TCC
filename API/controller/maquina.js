@@ -1,29 +1,34 @@
 const Maquina = require('../models/maquinas.js')
 
 exports.criarMaquina = async (req, res) => {
-    try {
-        const { nome_maquina, modelo, capacidade, num_serie, entrada_ener, especi } = req.body;
+  try {
+      const { nome_maquina, modelo, capacidade, num_serie, entrada_ener, especi } = req.body;
 
-        // Cria uma nova instância de Maquina com os dados recebidos
-        const novaMaquina = new Maquina({
-            nome_maquina,
-            modelo,
-            capacidade,
-            num_serie,
-            entrada_ener,
-            especi
-        });
+      // Verificar se algum dos campos está vazio
+      if (!nome_maquina || !modelo || !capacidade || !num_serie || !entrada_ener || !especi) {
+          return res.status(400).json({ error: "Todos os campos são obrigatórios" });
+      }
 
-        // Salva a nova máquina no banco de dados
-        await novaMaquina.save();
+      // Cria uma nova instância de Maquina com os dados recebidos
+      const novaMaquina = new Maquina({
+          nome_maquina,
+          modelo,
+          capacidade,
+          num_serie,
+          entrada_ener,
+          especi
+      });
 
-        return res.status(201).json({ newMaquina: novaMaquina.id, message: "Máquina cadastrada com sucesso" });
-    } catch (error) {
-        console.error('Erro no bloco try-catch:', error);
-        if (!res.headersSent) {
-            return res.status(500).json({ message: "Erro ao cadastrar Máquina" });
-        }
-    }
+      // Salva a nova máquina no banco de dados
+      await novaMaquina.save();
+
+      return res.status(201).json({ newMaquina: novaMaquina.id, message: "Máquina cadastrada com sucesso" });
+  } catch (error) {
+      console.error('Erro no bloco try-catch:', error);
+      if (!res.headersSent) {
+          return res.status(500).json({ message: "Erro ao cadastrar Máquina" });
+      }
+  }
 }
 
 exports.getAllMaquinas = async (req, res) => {

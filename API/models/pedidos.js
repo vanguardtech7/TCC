@@ -7,7 +7,7 @@ const pedidos = sequelize.define('pedidos', {
     allowNull: false
   },
   data: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false
   },
   descri: {
@@ -15,7 +15,7 @@ const pedidos = sequelize.define('pedidos', {
     allowNull: false
   },
   tempo_impre: {
-    type: DataTypes.TIME,
+    type: DataTypes.STRING,
     allowNull: false
   },
   user_id: { // Novo campo para armazenar o ID do usuário

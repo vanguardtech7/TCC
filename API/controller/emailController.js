@@ -55,35 +55,42 @@ async function redefinirSenha(req, res) {
     try {
         // Verificar se o token é válido
         const decoded = jwt.verify(token, JWT_SECRET);
-        
+
         // Verificar se o usuário é um usuário comum
-        let usuario = await Usuario.findOne({ email: decoded.email });
+        let usuario = await Usuario.findOne({ where: { email: decoded.email } });
 
         if (!usuario) {
             // Se não for um usuário comum, verificar se é um gestor
-            usuario = await Gestor.findOne({ email: decoded.email });
+            usuario = await Gestor.findOne({ where: { email: decoded.email } });
         }
 
         if (usuario) {
             // Atualizar a senha do usuário na tabela apropriada
             if (usuario instanceof Usuario) {
-                await await Usuario.update({ senha: novaSenha }, { where: { email: decoded.email } });
+                await Usuario.update({ senha: novaSenha }, { where: { email: decoded.email } });
             } else if (usuario instanceof Gestor) {
-                await await Gestor.update({ senha: novaSenha }, { where: { email: decoded.email } });
+                await Gestor.update({ senha: novaSenha }, { where: { email: decoded.email } });
             }
 
             // Enviar resposta de sucesso
-            res.send("Senha redefinida com sucesso.");
+            res.status(200).send({ message: "Senha redefinida com sucesso." });
         } else {
             // Se nenhum usuário for encontrado, enviar uma resposta de erro
-            res.status(404).send("Usuário não encontrado.");
+            res.status(404).send({ error: "Usuário não encontrado." });
         }
     } catch (error) {
         console.error("Erro ao redefinir senha:", error);
-        res.status(500).send("Ocorreu um erro ao redefinir a senha.");
+
+        // Enviar resposta de erro detalhada
+        if (error.name === 'JsonWebTokenError') {
+            res.status(401).send({ error: "Token inválido." });
+        } else if (error.name === 'TokenExpiredError') {
+            res.status(401).send({ error: "Token expirado." });
+        } else {
+            res.status(500).send({ error: "Ocorreu um erro ao redefinir a senha." });
+        }
     }
 }
-
 module.exports = {
     enviarEmailRecuperacaoSenha, // Certifique-se de exportar a função corretamente
     redefinirSenha

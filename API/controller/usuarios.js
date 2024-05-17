@@ -3,18 +3,18 @@ const Gestor = require('../models/gestor');
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const usersUsuarios = await Usuario.findAll();
-    const usersGestor = await Gestor.findAll();
+    const usersUsuarios = await Usuario.findAll({ attributes: { exclude: ['senha'] } });
+    const usersGestor = await Gestor.findAll({ attributes: { exclude: ['senha'] } });
 
     const allUsers = [...usersUsuarios, ...usersGestor];
 
-
     res.json(allUsers);
   } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Erro ao buscar usuários:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
   }
 };
+
 
 exports.deleteUser = async (req, res) => {
   const { email } = req.params;
