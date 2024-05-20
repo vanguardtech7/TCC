@@ -1,0 +1,26 @@
+services:
+  api:
+    build: ./api
+    container_name: docker-api
+    ports:
+      - "4000:4000"
+    environment:
+     - DB_NAME=techprint
+     - DB_USER=vanguard
+     - DB_PASS=Techprint3d
+     - PORT=4000
+     - DB_HOST=vanguardtech.mysql.database.azure.com
+     - DB_DIALECT=mysql
+     - TOKEN=aslkjasdogfhhsafosdjvcabsçdovb
+    volumes:
+      - ./api:/app/data
+
+  front:
+    build: ./front
+    container_name: docker-front
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
