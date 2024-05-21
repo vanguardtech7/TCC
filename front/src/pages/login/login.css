@@ -9,7 +9,7 @@
 }
 
 .login-sidebar {
-  width: 22vw;
+  width: fit-content;
   height: 100vh;
   align-self: flex-end;
   background-color: var(--washed-black);
@@ -19,12 +19,11 @@
   justify-content: space-between;
 }
 
-.redefinir{
+.redefinir {
   background-position: right;
-
 }
 
-.redefinir-sidebar{
+.redefinir-sidebar {
   width: 22vw;
   height: 90vh;
   align-items: right;
@@ -160,6 +159,26 @@ label {
 .login-text:hover {
   text-decoration: none;
 }
+
+@media screen and (width <= 1900px) {
+  .body {
+    background-size: cover;
+    background-position: center left;
+  }
+}
+
+/* @media screen and (width <= 1340px) {
+  .body {
+    background-size: cover;
+    background-position: bottom;
+  }
+}
+
+@media screen and (width <= 1160px) {
+  .body {
+    background-position: bottom;
+  }
+} */
 
 @media screen and (min-device-width: 1270px) and (max-device-width: 1600px) {
   .login-title {
