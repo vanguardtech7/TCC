@@ -134,7 +134,7 @@ export default function LandingPage() {
 
           <div className="sobre-sub-container">
             <h3>
-              O Espaço Maker foi uma área criada na Escola Senai
+              O Espaço Maker foi uma área criada na Escola SENAI
               Suiço-Brasileira - SP. Feito para disponibilizar um espaço para
               alunos e professores utilizarem das mais novas tecnologias de
               impressão 3D e outras tecnologias. 

@@ -5,6 +5,7 @@ import axios from 'axios';
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
+import './pedidos.css'
 
 export default function MeusPedidos() {
   const location = useLocation();
@@ -41,7 +42,8 @@ export default function MeusPedidos() {
     <div className="section-body">
       <HeaderSidebar />
       <div className="section-container">
-        <div className="top-container">
+        <div className="pedidos-top-container">
+          <I.NavArrowLeft style={{ fontSize: '1.6em', cursor: 'pointer' }} onClick={() => { nav('/agendamento') }} />
           <h1 className="pedidos-title">{pathname}</h1>
         </div>
 
