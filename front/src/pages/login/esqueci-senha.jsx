@@ -1,63 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./login.css";
 import HeaderLogin from "../../components/header-login/header-login";
 import * as M from "@mui/material";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export default function EsqueciSenha() {
-  const [email, setEmail] = useState(""); // Estado para armazenar o email digitado
+export default function RedefinirSenha() {
+  const [novaSenha, setNovaSenha] = useState("");
 
-  const handleEnviarEmail = async () => {
+  const nav = useNavigate();
+
+  useEffect(() => {
+    const extrairTokenDaURL = () => {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const token = urlParams.get("token");
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+    };
+
+    extrairTokenDaURL();
+  }, []);
+
+  const handleConfirmar = async () => {
     try {
-      // Verificando se o email foi preenchido
-      if (!email) {
-        console.error("Por favor, preencha o email.");
+      if (novaSenha == "") {
+        toast.warn("Por favor, preencha a nova senha.");
+        console.error("Por favor, preencha a nova senha.");
         return;
       }
 
-      // Fazendo a solicitação POST à API com os dados do email
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token não encontrado.");
+        return;
+      }
+
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
       const response = await axios.post(
-        "https://techprint-1.onrender.com/reset-password",
-        { email }
+        "https://techprint.onrender.com/redefinir-senha",
+        { novaSenha },
+        config
       );
 
-      // Verificando a resposta da API
+      toast.success("Senha redefinida com sucesso!");
+      setTimeout(() => {
+        nav("/login");
+      }, 3000);
       console.log("Resposta da API:", response.data);
-
-      // Limpando o campo de email após o envio bem-sucedido
-      setEmail("");
+      setNovaSenha("");
     } catch (error) {
-      console.error("Erro ao enviar email:", error);
+      toast.error("Erro ao redefinir a senha. Tente novamente mais tarde.");
+      console.error("Erro ao redefinir senha:", error);
+      if (error.response) {
+        console.error("Resposta do servidor:", error.response.data);
+      }
     }
   };
 
   return (
-    <body className="body">
+    <div className="body redefinir">
+      <ToastContainer position="bottom-right" />
       <HeaderLogin />
-      <aside className="login-sidebar">
+      <aside className="redefinir-sidebar">
         <div className="aside-sub-container">
           <h1 className="login-title">
-            Esqueceu a <br /> sua senha?
+            Escolha sua <br /> nova senha
           </h1>
           <div className="esqueci-container">
             <div className="esqueci-form">
-              <label htmlFor="email">Email: </label>
+              <label htmlFor="novaSenha">Nova Senha: </label>
               <div className="form-label">
                 <M.TextField
                   className="login-input"
-                  placeholder="Digite seu email de recuperação:"
+                  placeholder="Digite sua nova senha:"
+                  type="password"
                   sx={{ input: { color: "white" } }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={novaSenha}
+                  onChange={(e) => setNovaSenha(e.target.value)}
                 />
               </div>
-              <p className="login-link login-text">
-                Um Email será enviado para que consiga redefinir a sua senha.
-              </p>
             </div>
           </div>
-          <button className="login-button" onClick={handleEnviarEmail}>
-            Enviar Email
+          <button className="login-button" onClick={handleConfirmar}>
+            Confirmar
           </button>
         </div>
         <div className="login-links-container">
@@ -70,6 +101,6 @@ export default function EsqueciSenha() {
           </p>
         </div>
       </aside>
-    </body>
+    </div>
   );
 }

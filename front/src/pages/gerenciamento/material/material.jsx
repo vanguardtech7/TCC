@@ -20,7 +20,7 @@ export default function Material() {
   }, []);
 
   const fetchMaterials = () => {
-    axios.get("https://techprint-1.onrender.com/materiais")
+    axios.get("https://techprint.onrender.com/materiais")
       .then((response) => {
         setMaterials(response.data);
       })

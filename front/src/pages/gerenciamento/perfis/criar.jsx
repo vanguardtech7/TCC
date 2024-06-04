@@ -37,7 +37,7 @@ export default function CriarPerfil() {
           },
         };
         await axios.post(
-          "https://techprint-1.onrender.com/cadastro-gestor",
+          "https://techprint.onrender.com/cadastro-gestor",
           formData,
           config
         );

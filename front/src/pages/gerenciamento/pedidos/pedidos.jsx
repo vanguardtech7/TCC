@@ -8,18 +8,24 @@ import '../gerenciamento.css';
 
 export default function Pedidos() {
   const location = useLocation();
-  var pathname = location.pathname.split("/");
-  pathname = location.pathname.replace("%20", " ").replace("/", "");
+  const pathname = location.pathname.replace("%20", " ").replace("/", "");
 
   const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
-    axios.get('https://techprint-1.onrender.com/pedidos')
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios.get('https://techprint.onrender.com/pedidos', config)
       .then(response => {
         const data = response.data;
-        const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.data, item.descri, item.tempo_impre));
+        const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.nome_usuario, item.data, item.descri, item.tempo_impre));
         setRows(formattedData);
       })
       .catch(error => {
@@ -27,8 +33,8 @@ export default function Pedidos() {
       });
   }, []);
 
-  function createData(id, nome_pedido, data, descri, tempo_impre) {
-    return { id, nome_pedido, data, descri, tempo_impre };
+  function createData(id, nome_pedido, nome_usuario, data, descri, tempo_impre) {
+    return { id, nome_pedido, nome_usuario, data, descri, tempo_impre };
   }
 
   return (
@@ -45,6 +51,7 @@ export default function Pedidos() {
               <M.TableRow>
                 <M.TableCell><b>Id</b></M.TableCell>
                 <M.TableCell><b>Nome do Pedido</b></M.TableCell>
+                <M.TableCell><b>Nome do Usuário</b></M.TableCell>
                 <M.TableCell><b>Data</b></M.TableCell>
                 <M.TableCell><b>Descrição</b></M.TableCell>
                 <M.TableCell><b>Tempo de Impressão</b></M.TableCell>
@@ -55,6 +62,7 @@ export default function Pedidos() {
                 <M.TableRow key={row.id}>
                   <M.TableCell>{row.id}</M.TableCell>
                   <M.TableCell>{row.nome_pedido}</M.TableCell>
+                  <M.TableCell>{row.nome_usuario}</M.TableCell>
                   <M.TableCell>{row.data}</M.TableCell>
                   <M.TableCell>{row.descri}</M.TableCell>
                   <M.TableCell>{row.tempo_impre}</M.TableCell>

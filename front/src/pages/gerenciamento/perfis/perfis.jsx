@@ -11,14 +11,14 @@ export default function Perfis() {
 
   const [perfis, setPerfis] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [perfilToDelete, setPerfilToDelete] = useState(null); // Estado para armazenar o email do perfil a ser excluído
+  c // Estado para armazenar o email do perfil a ser excluído
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchPerfis() {
       try {
         const response = await fetch(
-          "https://techprint-1.onrender.com/usuarios"
+          "https://techprint.onrender.com/usuarios"
         );
         if (!response.ok) {
           throw new Error("Falha ao carregar os perfis");

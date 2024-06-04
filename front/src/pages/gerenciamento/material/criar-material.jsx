@@ -31,7 +31,7 @@ export default function CriarMaterial() {
         },
       };
       await axios.post(
-        "https://techprint-1.onrender.com/materiais",
+        "https://techprint.onrender.com/materiais",
         formData,
         config
       );

@@ -21,7 +21,7 @@ export default function Maquina() {
 
   const fetchMaquinas = () => {
     axios
-      .get("https://techprint-1.onrender.com/maquinas")
+      .get("https://techprint.onrender.com/maquinas")
       .then((response) => {
         setMaquinas(response.data);
       })

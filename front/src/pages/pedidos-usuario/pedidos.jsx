@@ -5,7 +5,7 @@ import axios from 'axios';
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
-import './pedidos.css'
+import Pedidos from './../gerenciamento/pedidos/pedidos';
 
 export default function MeusPedidos() {
   const location = useLocation();
@@ -14,12 +14,14 @@ export default function MeusPedidos() {
 
   const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [pedidos, setPedidos] = useState([])
+  
   const nav = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token'); // Obtenha o token do local storage
 
-    axios.get('https://techprint-1.onrender.com/meus-pedidos', {
+    axios.get('https://techprint.onrender.com/meus-pedidos', {
       headers: {
         Authorization: `Bearer ${token}` // Envie o token no cabeçalho da requisição
       }
@@ -38,12 +40,30 @@ export default function MeusPedidos() {
     return { id, nome_pedido, data, descri, tempo_impre };
   }
 
+  const deletePedido = async (email) => {
+    try {
+      const response = await fetch(
+        `https://techprint-1.onrender.com/meus-pedidos/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Falha ao excluir o perfil");
+      }
+      setPedidos(pedidos.filter((perfil) => perfil.email !== email));
+      setModalOpen(false); // Fechar o modal de confirmação
+    } catch (error) {
+      console.error("Erro ao excluir o perfil:", error);
+    }
+  };
+
+
   return (
     <div className="section-body">
       <HeaderSidebar />
       <div className="section-container">
-        <div className="pedidos-top-container">
-          <I.NavArrowLeft style={{ fontSize: '1.6em', cursor: 'pointer' }} onClick={() => { nav('/agendamento') }} />
+        <div className="top-container">
           <h1 className="pedidos-title">{pathname}</h1>
         </div>
 
@@ -100,7 +120,7 @@ export default function MeusPedidos() {
               <button
                 className="modal-btn btn-confirmar"
                 onClick={() => {
-                  setModalOpen(!modalOpen);
+                  deletePedido()
                 }}
               >
                 Confirmar

@@ -11,12 +11,15 @@ import Botao from "../../components/botao-login/botao-login";
 import axios from "axios";
 
 const { Dragger } = Upload;
+
+
 export default function Agendamento() {
   const [formData, setFormData] = useState({
-    nome_pedido: "",
-    data: "",
-    descri: "",
-    tempo_impre: "",
+    nome_pedido: '',
+    data: '',
+    descri: '',
+    tempo_impre: '',
+    arquivo: null, // Estado para armazenar o arquivo selecionado
   });
 
   const handleChange = (e) => {
@@ -27,48 +30,61 @@ export default function Agendamento() {
     }));
   };
 
+  // Função para lidar com a seleção de arquivo
+  const handleFileChange = (file) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      arquivo: file, // Armazena o arquivo selecionado no estado
+    }));
+  };
+
   const handleAgend = async () => {
-    console.log("entrou no handleAgend", formData);
+    console.log('entrou no handleAgend', formData);
 
     // Verificação se algum campo está vazio
     if (!formData.nome_pedido || !formData.data || !formData.descri || !formData.tempo_impre) {
-      toast.error("Por favor, preencha todos os campos antes de enviar.");
+      toast.error('Por favor, preencha todos os campos antes de enviar.');
       return;
     }
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
 
-      console.log("Dados enviados:", formData);
+      console.log('Dados enviados:', formData);
 
       // Transformando o formData para adequá-lo à estrutura esperada pela API
-      const formDataToSend = {
-        nome: formData.nome_pedido,
-        data: formData.data,
-        descri: formData.descri,
-        tempo_impre: formData.tempo_impre,
-      };
+      const formDataToSend = new FormData();
+      formDataToSend.append('nome_pedido', formData.nome_pedido);
+      formDataToSend.append('data', formData.data);
+      formDataToSend.append('descri', formData.descri);
+      formDataToSend.append('tempo_impre', formData.tempo_impre);
+
+      // Enviando o arquivo, mas não salvando no banco de dados
+      if (formData.arquivo) {
+        formDataToSend.append('arquivo', formData.arquivo);
+      }
 
       await axios.post(
-        "https://techprint-1.onrender.com/pedidos",
+        'https://techprint.onrender.com/pedidos',
         formDataToSend,
         config
       );
-      toast.success("Pedido realizado com sucesso!");
+      toast.success('Pedido realizado com sucesso!');
       setFormData({
-        nome_pedido: "",
-        data: "",
-        descri: "",
-        tempo_impre: "",
+        nome_pedido: '',
+        data: '',
+        descri: '',
+        tempo_impre: '',
+        arquivo: null,
       });
     } catch (error) {
-      console.error("Erro na requisição:", error);
-      toast.error("Erro ao fazer o pedido");
+      console.error('Erro na requisição:', error);
+      toast.error('Erro ao fazer o pedido');
     }
   };
 
@@ -133,7 +149,14 @@ export default function Agendamento() {
                 onChange={handleChange}
               ></M.TextField>
               <p className="label">Escolha o arquivo:</p>
-              <Dragger className="dragger-container" accept="image/*">
+              <Dragger
+                    className="dragger-container"
+                    accept="image/*"
+                    onChange={(info) => {
+                      const file = info.file.originFileObj;
+                      handleFileChange(file);
+                    }}
+                  >
                 <I.CloudUpload />
                 <h2 className="dragger-text">Arraste e solte o arquivo.</h2>
                 <p className="dragger-info">
