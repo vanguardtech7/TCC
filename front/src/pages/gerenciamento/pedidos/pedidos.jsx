@@ -11,7 +11,6 @@ export default function Pedidos() {
   const pathname = location.pathname.replace("%20", " ").replace("/", "");
 
   const [rows, setRows] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,7 @@ export default function Pedidos() {
       },
     };
 
-    axios.get('https://techprint.onrender.com/pedidos', config)
+    axios.get('https://techprint-1.onrender.com/pedidos', config)
       .then(response => {
         const data = response.data;
         const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.nome_usuario, item.data, item.descri, item.tempo_impre));
@@ -39,6 +38,7 @@ export default function Pedidos() {
 
   return (
     <div className="section-body">
+      
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">
@@ -72,36 +72,7 @@ export default function Pedidos() {
           </M.Table>
         </M.TableContainer>
       </div>
-      {modalOpen && (
-        <>
-          <div className="modal-excluir-container">
-            <h1 className="modal-title">Tem certeza?</h1>
-            <div className="modal-divider"></div>
-            <h3 className="modal-excluir-text">
-              Essa ação não poderá ser revertida!
-            </h3>
-            <div className="modal-btn-container">
-              <button
-                className="modal-btn btn-cancelar"
-                onClick={() => {
-                  setModalOpen(!modalOpen);
-                }}
-              >
-                Cancelar
-              </button>
-              <button
-                className="modal-btn btn-confirmar"
-                onClick={() => {
-                  setModalOpen(!modalOpen);
-                }}
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-          <div className="hs-overlay" onClick={() => { setModalOpen(!modalOpen) }}></div>
-        </>
-      )}
+      
     </div>
   );
 }

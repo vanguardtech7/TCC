@@ -9,6 +9,7 @@ import { Upload } from "antd";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Botao from "../../components/botao-login/botao-login";
 import axios from "axios";
+import dayjs from 'dayjs';
 
 const { Dragger } = Upload;
 
@@ -30,11 +31,28 @@ export default function Agendamento() {
     }));
   };
 
+  
+  const handleDateChange = (date) => {
+    const formattedDate = dayjs(date).format('DD-MM-YYYY'); 
+    setFormData((prevData) => ({
+      ...prevData,
+      data: formattedDate,
+    }));
+  };
+
   // Função para lidar com a seleção de arquivo
   const handleFileChange = (file) => {
     setFormData((prevData) => ({
       ...prevData,
       arquivo: file, // Armazena o arquivo selecionado no estado
+    }));
+  };
+
+  const handleTimeChange = (time) => {
+    const formattedTime = dayjs(time).format('HH:mm'); // Formato de hora: hora:minuto
+    setFormData((prevData) => ({
+      ...prevData,
+      tempo_impre: formattedTime,
     }));
   };
 
@@ -70,7 +88,7 @@ export default function Agendamento() {
       }
 
       await axios.post(
-        'https://techprint.onrender.com/pedidos',
+        'https://techprint-1.onrender.com/pedidos', 
         formDataToSend,
         config
       );
@@ -118,23 +136,22 @@ export default function Agendamento() {
               <div className="datetime-container">
                 <div className="datetime-sub-container">
                   <p className="label">Escolha a data: </p>
-                  <M.TextField
+                  <X.DatePicker
                     className="timepicker"
                     placeholder="dd/mm/aaaa"
                     name="data"
-                    value={formData.data}
-                    onChange={handleChange}
-                  ></M.TextField>
+                    value={dayjs(formData.data)}
+                    onChange={(date) => handleDateChange(date)}
+                  ></X.DatePicker>
                 </div>
                 <div className="datetime-sub-container">
                   <p className="label">Tempo estimado de impressão: </p>
-                  <M.TextField
+                  <X.TimePicker
                     placeholder="hh:mm"
-                    className="timepicker"
                     name="tempo_impre"
-                    value={formData.tempo_impre}
-                    onChange={handleChange}
-                  ></M.TextField>
+                    value={dayjs(formData.tempo_impre, 'HH:mm')}
+                    onChange={(time) => handleTimeChange(time)}
+                  />
                 </div>
               </div>
               <p className="label">Descrição do Projeto:</p>

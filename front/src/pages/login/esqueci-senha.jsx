@@ -1,106 +1,38 @@
-import React, { useState, useEffect } from "react";
-import "./login.css";
+
+import "./login.css"
 import HeaderLogin from "../../components/header-login/header-login";
-import * as M from "@mui/material";
-import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import * as M from "@mui/material"
 
-export default function RedefinirSenha() {
-  const [novaSenha, setNovaSenha] = useState("");
+export default function EsqueciSenha() {
 
-  const nav = useNavigate();
-
-  useEffect(() => {
-    const extrairTokenDaURL = () => {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const token = urlParams.get("token");
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-    };
-
-    extrairTokenDaURL();
-  }, []);
-
-  const handleConfirmar = async () => {
-    try {
-      if (novaSenha == "") {
-        toast.warn("Por favor, preencha a nova senha.");
-        console.error("Por favor, preencha a nova senha.");
-        return;
-      }
-
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("Token não encontrado.");
-        return;
-      }
-
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-
-      const response = await axios.post(
-        "https://techprint.onrender.com/redefinir-senha",
-        { novaSenha },
-        config
-      );
-
-      toast.success("Senha redefinida com sucesso!");
-      setTimeout(() => {
-        nav("/login");
-      }, 3000);
-      console.log("Resposta da API:", response.data);
-      setNovaSenha("");
-    } catch (error) {
-      toast.error("Erro ao redefinir a senha. Tente novamente mais tarde.");
-      console.error("Erro ao redefinir senha:", error);
-      if (error.response) {
-        console.error("Resposta do servidor:", error.response.data);
-      }
-    }
-  };
 
   return (
-    <div className="body redefinir">
-      <ToastContainer position="bottom-right" />
+    <body className="body">
       <HeaderLogin />
-      <aside className="redefinir-sidebar">
+      <aside className="login-sidebar">
         <div className="aside-sub-container">
-          <h1 className="login-title">
-            Escolha sua <br /> nova senha
-          </h1>
+          <h1 className="login-title">Esqueceu a <br /> sua senha?</h1>
           <div className="esqueci-container">
-            <div className="esqueci-form">
-              <label htmlFor="novaSenha">Nova Senha: </label>
-              <div className="form-label">
+            <div
+              className="esqueci-form"
+            >
+              <label htmlFor="email">Email: </label>
+              <div className="form-label" >
                 <M.TextField
                   className="login-input"
-                  placeholder="Digite sua nova senha:"
-                  type="password"
+                  placeholder="Digite seu email de recuperação:"
                   sx={{ input: { color: "white" } }}
-                  value={novaSenha}
-                  onChange={(e) => setNovaSenha(e.target.value)}
                 />
               </div>
+              <p className="login-link login-text">Um Email será direcionando para que consiga redefinir a senha de sua conta.</p>
             </div>
           </div>
-          <button className="login-button" onClick={handleConfirmar}>
-            Confirmar
-          </button>
+          <button className="login-button">Enviar Email</button>
         </div>
         <div className="login-links-container">
-          <p>
-            Voltar para o{" "}
-            <a href="/login" className="login-link">
-              Login
-            </a>
-            .
-          </p>
+          <p>Voltar para o <a href="/login" className="login-link">Login</a>.</p>
         </div>
       </aside>
-    </div>
-  );
+    </body>
+  )
 }

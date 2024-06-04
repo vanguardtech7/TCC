@@ -6,7 +6,7 @@ import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
 import Pedidos from './../gerenciamento/pedidos/pedidos';
-
+import { ToastContainer, toast } from "react-toastify";
 export default function MeusPedidos() {
   const location = useLocation();
   var pathname = location.pathname.split("/");
@@ -14,14 +14,14 @@ export default function MeusPedidos() {
 
   const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [pedidos, setPedidos] = useState([])
+  const [pedidoToDelete, setPedidoToDelete] = useState(null); // Estado para armazenar o ID do pedido a ser excluído
   
   const nav = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token'); // Obtenha o token do local storage
 
-    axios.get('https://techprint.onrender.com/meus-pedidos', {
+    axios.get('https://techprint-1.onrender.com/meus-pedidos', {
       headers: {
         Authorization: `Bearer ${token}` // Envie o token no cabeçalho da requisição
       }
@@ -40,28 +40,34 @@ export default function MeusPedidos() {
     return { id, nome_pedido, data, descri, tempo_impre };
   }
 
-  const deletePedido = async (email) => {
+  const deletePedido = async (id) => {
     try {
+      const token = localStorage.getItem('token'); // Obtenha o token do local storage
       const response = await fetch(
         `https://techprint-1.onrender.com/meus-pedidos/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`, // Adicione o token no cabeçalho da requisição
+          },
         }
       );
       if (!response.ok) {
-        throw new Error("Falha ao excluir o perfil");
+        throw new Error("Falha ao excluir o pedido");
       }
-      setPedidos(pedidos.filter((perfil) => perfil.email !== email));
+      toast.success("Seu pedido foi excluído com sucesso!")
+      setRows(rows.filter((row) => row.id !== id)); // Atualize a lista de pedidos
       setModalOpen(false); // Fechar o modal de confirmação
     } catch (error) {
-      console.error("Erro ao excluir o perfil:", error);
+      toast.error("Não foi possível excluir o seu pedido.")
+      console.error("Erro ao excluir o pedido:", error);
     }
   };
-
 
   return (
     <div className="section-body">
       <HeaderSidebar />
+      <ToastContainer position="bottom-right" />
       <div className="section-container">
         <div className="top-container">
           <h1 className="pedidos-title">{pathname}</h1>
@@ -90,7 +96,8 @@ export default function MeusPedidos() {
                   <M.TableCell align="center" style={{ cursor: "pointer" }}>
                     <I.Trash
                       onClick={() => {
-                        setModalOpen(!modalOpen);
+                        setPedidoToDelete(row.id); // Defina o pedido a ser excluído
+                        setModalOpen(true); // Abra o modal de confirmação
                       }}
                     />
                   </M.TableCell>
@@ -112,7 +119,7 @@ export default function MeusPedidos() {
               <button
                 className="modal-btn btn-cancelar"
                 onClick={() => {
-                  setModalOpen(!modalOpen);
+                  setModalOpen(false); // Feche o modal
                 }}
               >
                 Cancelar
@@ -120,16 +127,17 @@ export default function MeusPedidos() {
               <button
                 className="modal-btn btn-confirmar"
                 onClick={() => {
-                  deletePedido()
+                  deletePedido(pedidoToDelete); // Exclua o pedido
                 }}
               >
                 Confirmar
               </button>
             </div>
           </div>
-          <div className="hs-overlay" onClick={() => { setModalOpen(!modalOpen) }}></div>
+          <div className="hs-overlay" onClick={() => { setModalOpen(false) }}></div>
         </>
       )}
     </div>
   );
 }
+

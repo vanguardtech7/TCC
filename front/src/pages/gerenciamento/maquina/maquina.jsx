@@ -1,6 +1,7 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
@@ -21,7 +22,7 @@ export default function Maquina() {
 
   const fetchMaquinas = () => {
     axios
-      .get("https://techprint.onrender.com/maquinas")
+      .get("https://techprint-1.onrender.com/maquinas")
       .then((response) => {
         setMaquinas(response.data);
       })
@@ -50,6 +51,8 @@ export default function Maquina() {
         );
         setModalOpen(false);
         setMaquinaSelecionada(null);
+        toast.success('Máquina Excluida com sucesso!')
+        
       })
       .catch((error) => {
         console.error("erro ao excluir maquina", error);
@@ -58,6 +61,9 @@ export default function Maquina() {
 
   return (
     <div className="section-body">
+      <ToastContainer
+        position="bottom-right"
+      />
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">

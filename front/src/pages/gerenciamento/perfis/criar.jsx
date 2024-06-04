@@ -37,7 +37,7 @@ export default function CriarPerfil() {
           },
         };
         await axios.post(
-          "https://techprint.onrender.com/cadastro-gestor",
+          "https://techprint-1.onrender.com/cadastro-gestor",
           formData,
           config
         );
@@ -57,7 +57,7 @@ export default function CriarPerfil() {
   };
   return (
     <div className="section-body">
-      <ToastContainer position="bottom-left" />
+      <ToastContainer position="bottom-right" />
 
       <HeaderSidebar />
       <div className="section-container">

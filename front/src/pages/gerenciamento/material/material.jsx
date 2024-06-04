@@ -1,6 +1,7 @@
 import HeaderSidebar from "../../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
@@ -20,7 +21,7 @@ export default function Material() {
   }, []);
 
   const fetchMaterials = () => {
-    axios.get("https://techprint.onrender.com/materiais")
+    axios.get("https://techprint-1.onrender.com/materiais")
       .then((response) => {
         setMaterials(response.data);
       })
@@ -43,6 +44,7 @@ export default function Material() {
         setMaterials(materials.filter(material => material.id !== materialToDelete.id));
         setModalOpen(false);
         setMaterialToDelete(null);
+        toast.success("Material Excluido com sucesso!")
       })
       .catch((error) => {
         console.error("erro ao excluir material", error);
@@ -51,6 +53,9 @@ export default function Material() {
 
   return (
     <div className="section-body">
+      <ToastContainer
+        position="bottom-right"
+      />
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">

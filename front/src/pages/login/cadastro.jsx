@@ -30,7 +30,7 @@ export default function Cadastro() {
     } else {
       try {
         const response = await axios.post(
-          "https://techprint.onrender.com/cadastro-user",
+          "https://techprint-1.onrender.com/cadastro-user",
           { email, nome, senha, sala, cargo }
         );
         toast.success("Cadastrado com sucesso! Redirecionando para a página de Login.");

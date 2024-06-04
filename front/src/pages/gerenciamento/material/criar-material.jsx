@@ -31,7 +31,7 @@ export default function CriarMaterial() {
         },
       };
       await axios.post(
-        "https://techprint.onrender.com/materiais",
+        "https://techprint-1.onrender.com/materiais",
         formData,
         config
       );
@@ -52,7 +52,9 @@ export default function CriarMaterial() {
 
   return (
     <div className="section-body">
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+      />
       <HeaderSidebar />
       <div className="section-container">
         <div className="cadastrar-container">

@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
+import { ToastContainer, toast } from "react-toastify";
+
 
 export default function Perfis() {
   const location = useLocation("");
@@ -11,14 +13,21 @@ export default function Perfis() {
 
   const [perfis, setPerfis] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  c // Estado para armazenar o email do perfil a ser excluído
+  const [perfilToDelete, setPerfilToDelete] = useState("") // Estado para armazenar o email do perfil a ser excluído
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchPerfis() {
       try {
+        const token = localStorage.getItem("token"); // Obter token do localStorage
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
         const response = await fetch(
-          "https://techprint.onrender.com/usuarios"
+          "https://techprint-1.onrender.com/usuarios",
+          config
         );
         if (!response.ok) {
           throw new Error("Falha ao carregar os perfis");
@@ -36,24 +45,33 @@ export default function Perfis() {
   // Função para excluir um perfil
   const deletePerfil = async (email) => {
     try {
+      const token = localStorage.getItem("token"); // Obter token do localStorage
       const response = await fetch(
         `https://techprint-1.onrender.com/usuarios/${email}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       if (!response.ok) {
         throw new Error("Falha ao excluir o perfil");
       }
+      toast.success("Perfil excluído com sucesso!");
       setPerfis(perfis.filter((perfil) => perfil.email !== email));
       setModalOpen(false); // Fechar o modal de confirmação
     } catch (error) {
+      toast.error("Erro ao excluir o perfil.");
       console.error("Erro ao excluir o perfil:", error);
     }
   };
 
   return (
     <div className="section-body">
+    <ToastContainer
+      position="bottom-right"
+    />
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">

@@ -33,7 +33,7 @@ export default function CriarMaquina() {
         },
       };
       await axios.post(
-        "https://techprint.onrender.com/maquinas",
+        "https://techprint-1.onrender.com/maquinas",
         formData,
         config
       );
