@@ -9,17 +9,18 @@ import { Upload } from "antd";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Botao from "../../components/botao-login/botao-login";
 import axios from "axios";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 const { Dragger } = Upload;
 
-
 export default function Agendamento() {
+  const [showLoading, setShowLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    nome_pedido: '',
-    data: '',
-    descri: '',
-    tempo_impre: '',
+    nome_pedido: "",
+    data: "",
+    descri: "",
+    tempo_impre: "",
     arquivo: null, // Estado para armazenar o arquivo selecionado
   });
 
@@ -31,9 +32,8 @@ export default function Agendamento() {
     }));
   };
 
-  
   const handleDateChange = (date) => {
-    const formattedDate = dayjs(date).format('DD-MM-YYYY'); 
+    const formattedDate = dayjs(date).format("DD-MM-YYYY");
     setFormData((prevData) => ({
       ...prevData,
       data: formattedDate,
@@ -49,7 +49,7 @@ export default function Agendamento() {
   };
 
   const handleTimeChange = (time) => {
-    const formattedTime = dayjs(time).format('HH:mm'); // Formato de hora: hora:minuto
+    const formattedTime = dayjs(time).format("HH:mm"); // Formato de hora: hora:minuto
     setFormData((prevData) => ({
       ...prevData,
       tempo_impre: formattedTime,
@@ -57,52 +57,60 @@ export default function Agendamento() {
   };
 
   const handleAgend = async () => {
-    console.log('entrou no handleAgend', formData);
-
+    console.log("entrou no handleAgend", formData);
+    setShowLoading(true);
     // Verificação se algum campo está vazio
-    if (!formData.nome_pedido || !formData.data || !formData.descri || !formData.tempo_impre) {
-      toast.error('Por favor, preencha todos os campos antes de enviar.');
+    if (
+      !formData.nome_pedido ||
+      !formData.data ||
+      !formData.descri ||
+      !formData.tempo_impre
+    ) {
+      toast.error("Por favor, preencha todos os campos antes de enviar.");
+      setShowLoading(false);
       return;
     }
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
 
-      console.log('Dados enviados:', formData);
+      console.log("Dados enviados:", formData);
 
       // Transformando o formData para adequá-lo à estrutura esperada pela API
       const formDataToSend = new FormData();
-      formDataToSend.append('nome_pedido', formData.nome_pedido);
-      formDataToSend.append('data', formData.data);
-      formDataToSend.append('descri', formData.descri);
-      formDataToSend.append('tempo_impre', formData.tempo_impre);
+      formDataToSend.append("nome_pedido", formData.nome_pedido);
+      formDataToSend.append("data", formData.data);
+      formDataToSend.append("descri", formData.descri);
+      formDataToSend.append("tempo_impre", formData.tempo_impre);
 
       // Enviando o arquivo, mas não salvando no banco de dados
       if (formData.arquivo) {
-        formDataToSend.append('arquivo', formData.arquivo);
+        formDataToSend.append("arquivo", formData.arquivo);
       }
 
       await axios.post(
-        'https://techprint-1.onrender.com/pedidos', 
+        "https://techprint-1.onrender.com/pedidos",
         formDataToSend,
         config
       );
-      toast.success('Pedido realizado com sucesso!');
+      toast.success("Pedido realizado com sucesso!");
+      setShowLoading(false);
       setFormData({
-        nome_pedido: '',
-        data: '',
-        descri: '',
-        tempo_impre: '',
+        nome_pedido: "",
+        data: "",
+        descri: "",
+        tempo_impre: "",
         arquivo: null,
       });
     } catch (error) {
-      console.error('Erro na requisição:', error);
-      toast.error('Erro ao fazer o pedido');
+      console.error("Erro na requisição:", error);
+      toast.error("Erro ao fazer o pedido");
+      setShowLoading(false);
     }
   };
 
@@ -147,9 +155,11 @@ export default function Agendamento() {
                 <div className="datetime-sub-container">
                   <p className="label">Tempo estimado de impressão: </p>
                   <X.TimePicker
+                    className="timepicker"
                     placeholder="hh:mm"
+                    ampm={false}
                     name="tempo_impre"
-                    value={dayjs(formData.tempo_impre, 'HH:mm')}
+                    value={dayjs(formData.tempo_impre, "HH:mm")}
                     onChange={(time) => handleTimeChange(time)}
                   />
                 </div>
@@ -167,13 +177,13 @@ export default function Agendamento() {
               ></M.TextField>
               <p className="label">Escolha o arquivo:</p>
               <Dragger
-                    className="dragger-container"
-                    accept="image/*"
-                    onChange={(info) => {
-                      const file = info.file.originFileObj;
-                      handleFileChange(file);
-                    }}
-                  >
+                className="dragger-container"
+                accept="image/*"
+                onChange={(info) => {
+                  const file = info.file.originFileObj;
+                  handleFileChange(file);
+                }}
+              >
                 <I.CloudUpload />
                 <h2 className="dragger-text">Arraste e solte o arquivo.</h2>
                 <p className="dragger-info">
@@ -183,12 +193,19 @@ export default function Agendamento() {
                 </p>
               </Dragger>
             </div>
-            <button
-              className="system-btn agendamento-btn"
-              onClick={handleAgend}
+
+            <a
+              className="button-container"
+              onClick={() => {
+                handleAgend();
+              }}
             >
-              Enviar Projeto
-            </button>
+              <Botao
+                label="Agendar"
+                disabled={showLoading}
+                loading={showLoading}
+              />
+            </a>
           </div>
         </div>
       </div>

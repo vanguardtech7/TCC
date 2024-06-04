@@ -131,8 +131,8 @@
 
 .button-container {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: center;
+  width: 40%;
 }
 
 .grey {
