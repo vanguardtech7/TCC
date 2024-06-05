@@ -6,18 +6,19 @@ import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
 import { ToastContainer, toast } from "react-toastify";
 
-
 export default function Perfis() {
   const location = useLocation("");
   const pathname = location.pathname.replace("%20", " ").replace("/", "");
 
   const [perfis, setPerfis] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [perfilToDelete, setPerfilToDelete] = useState("") // Estado para armazenar o email do perfil a ser excluído
+  const [isLoading, setIsLoading] = useState(true);
+  const [perfilToDelete, setPerfilToDelete] = useState(""); // Estado para armazenar o email do perfil a ser excluído
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchPerfis() {
+      setIsLoading(true);
       try {
         const token = localStorage.getItem("token"); // Obter token do localStorage
         const config = {
@@ -33,8 +34,10 @@ export default function Perfis() {
           throw new Error("Falha ao carregar os perfis");
         }
         const data = await response.json();
+        setIsLoading(false);
         setPerfis(data);
       } catch (error) {
+        setIsLoading(false);
         console.error("Erro ao buscar os perfis:", error);
       }
     }
@@ -69,9 +72,7 @@ export default function Perfis() {
 
   return (
     <div className="section-body">
-    <ToastContainer
-      position="bottom-right"
-    />
+      <ToastContainer position="bottom-right" />
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">
@@ -97,27 +98,42 @@ export default function Perfis() {
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
-              {perfis.map((perfil) => (
-                <M.TableRow key={perfil.id}>
-                  <M.TableCell>{perfil.id}</M.TableCell>
-                  <M.TableCell component="th" scope="row">
-                    {perfil.nome}
-                  </M.TableCell>
-                  <M.TableCell align="left">{perfil.email}</M.TableCell>
-                  <M.TableCell align="left">
-                    {perfil.cargo || "Gestor"}
-                  </M.TableCell>
+              {isLoading ? (
+                <p className="table-message">Carregando...</p>
+              ) : (
+                <>
+                  {perfis.length > 0 ? (
+                    perfis.map((perfil) => (
+                      <M.TableRow key={perfil.id}>
+                        <M.TableCell>{perfil.id}</M.TableCell>
+                        <M.TableCell component="th" scope="row">
+                          {perfil.nome}
+                        </M.TableCell>
+                        <M.TableCell align="left">{perfil.email}</M.TableCell>
+                        <M.TableCell align="left">
+                          {perfil.cargo || "Gestor"}
+                        </M.TableCell>
 
-                  <M.TableCell align="center" style={{ cursor: "pointer" }}>
-                    <I.Trash
-                      onClick={() => {
-                        setPerfilToDelete(perfil.email);
-                        setModalOpen(true);
-                      }}
-                    />
-                  </M.TableCell>
-                </M.TableRow>
-              ))}
+                        <M.TableCell
+                          align="center"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <I.Trash
+                            onClick={() => {
+                              setPerfilToDelete(perfil.email);
+                              setModalOpen(true);
+                            }}
+                          />
+                        </M.TableCell>
+                      </M.TableRow>
+                    ))
+                  ) : (
+                    <p className="table-message">
+                      Parece que ainda não há nenhum dado...
+                    </p>
+                  )}
+                </>
+              )}
             </M.TableBody>
           </M.Table>
         </M.TableContainer>

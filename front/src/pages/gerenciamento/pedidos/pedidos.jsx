@@ -17,15 +17,15 @@ export default function Pedidos() {
 
   useEffect(() => {
     setIsLoading(true);
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    // const token = localStorage.getItem("token");
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
 
     axios
-      .get("https://techprint-1.onrender.com/pedidos", config)
+      .get("https://techprint-1.onrender.com/pedidos")
       .then((response) => {
         const data = response.data;
         const formattedData = data.map((item) =>
@@ -94,9 +94,7 @@ export default function Pedidos() {
             </M.TableHead>
             <M.TableBody>
               {isLoading ? (
-                <>
-                  <p className="table-message">Carregando...</p>
-                </>
+                <p className="table-message">Carregando...</p>
               ) : (
                 <>
                   {rows.length > 0 ? (
