@@ -1,6 +1,5 @@
 .login-button {
-  width: 60%;
-  padding: 1.5vh;
+  padding: 1.5vh 3vw;
   color: var(--doctor);
   background-color: var(--blurstering-blue);
   border: none;
@@ -13,6 +12,10 @@
   cursor: pointer;
   transition: all 0.2s;
   text-wrap: nowrap;
+}
+
+.cadastro-button{
+  width: 60%;
 }
 
 .login-button:hover {

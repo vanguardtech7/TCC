@@ -7,7 +7,7 @@ import * as M from "@mui/material";
 import * as X from "@mui/x-date-pickers";
 import { Upload } from "antd";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Botao from "../../components/botao-login/botao-login";
+import { BotaoAgendamento } from "../../components/botao-login/botao-login";
 import axios from "axios";
 import dayjs from "dayjs";
 
@@ -200,7 +200,7 @@ export default function Agendamento() {
                 handleAgend();
               }}
             >
-              <Botao
+              <BotaoAgendamento
                 label="Agendar"
                 disabled={showLoading}
                 loading={showLoading}

@@ -1,3 +1,4 @@
+import './pedidos.css'
 import HeaderSidebar from "../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -5,8 +6,9 @@ import axios from 'axios';
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
-import Pedidos from './../gerenciamento/pedidos/pedidos';
+import { BackAgendamento } from "../../components/back-button/back-button";
 import { ToastContainer, toast } from "react-toastify";
+
 export default function MeusPedidos() {
   const location = useLocation();
   var pathname = location.pathname.split("/");
@@ -15,7 +17,7 @@ export default function MeusPedidos() {
   const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [pedidoToDelete, setPedidoToDelete] = useState(null); // Estado para armazenar o ID do pedido a ser excluído
-  
+
   const nav = useNavigate();
 
   useEffect(() => {
@@ -69,8 +71,11 @@ export default function MeusPedidos() {
       <HeaderSidebar />
       <ToastContainer position="bottom-right" />
       <div className="section-container">
-        <div className="top-container">
-          <h1 className="pedidos-title">{pathname}</h1>
+        <div className="top-container pedidos-container">
+          <BackAgendamento />
+          <h1 className="pedidos-title">
+            {pathname}
+          </h1>
         </div>
 
         <M.TableContainer component={Paper} className="table-container" sx={{ maxHeight: 640 }}>

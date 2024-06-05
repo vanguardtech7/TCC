@@ -53,7 +53,7 @@ export default function Cadastro() {
     <body className="body">
       <ToastContainer position="bottom-right" pauseOnHover={false}/>
       <HeaderLogin />
-      <aside className="login-sidebar">
+      <aside className="login-sidebar cadastro-sidebar">
         <h1 className="login-title">Cadastro</h1>
         <div className="cadastro-container">
           <div className="cadastro-form">
@@ -126,7 +126,6 @@ export default function Cadastro() {
           </div>
         </div>
         <a
-          className="button-container"
           style={{ textDecoration: "none" }}
           href="javascript:void(0)"
           onClick={() => {

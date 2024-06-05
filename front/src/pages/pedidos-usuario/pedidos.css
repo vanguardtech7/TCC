@@ -2,6 +2,13 @@
   font-size: 2em;
   margin: 1vh 2vw;
 }
+
+.pedidos-container{
+  width: 20%;
+  text-wrap: nowrap;
+  display: flex;
+  align-items: center;
+}
  
 @media screen
  

@@ -139,16 +139,15 @@ export default function Login(props) {
               </div>
             </div>
           </div>
-          <a
-            className="button-container"
-            style={{ textDecoration: "none" }}
-            href="javascript:void(0)"
-            onClick={() => {
-              handleLogin();
-            }}
-          >
-            <Botao label="Entrar" disabled={showLoading} loading={showLoading}/>
-          </a>
+        <a
+          style={{ textDecoration: "none" }}
+          href="javascript:void(0)"
+          onClick={() => {
+            handleLogin();
+          }}
+        >
+          <Botao label="Entrar" disabled={showLoading} loading={showLoading} />
+        </a>
         </div>
         <div className="login-links-container">
           <p>

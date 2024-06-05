@@ -37,7 +37,7 @@ export default function Material() {
 
     axios.delete(`https://techprint-1.onrender.com/materiais/${materialToDelete.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}` 
+        Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
       .then(() => {
