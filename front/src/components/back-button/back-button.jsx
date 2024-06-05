@@ -1,33 +1,23 @@
-import './back-button.css'
-import { useNavigate } from "react-router-dom";
-import * as I from "iconoir-react";
+import './back-button.css';
+import { useNavigate } from 'react-router-dom';
+import * as I from 'iconoir-react';
 
 export default function BackButton() {
-  let nav = useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <>
-      <button
-        onClick={() => {
-          nav(-1);
-        }}
-      >
-        <I.NavArrowLeft />
-      </button>
-    </>
+    <button onClick={() => navigate(-1)}>
+      <I.NavArrowLeft />
+    </button>
   );
 }
 
 export function BackAgendamento() {
-  let nav = useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <button
-      onClick={() => {
-        nav('/agendamento')
-      }}>
+    <button onClick={() => navigate('/agendamento')}>
       <I.NavArrowLeft />
     </button>
-  )
+  );
 }
-

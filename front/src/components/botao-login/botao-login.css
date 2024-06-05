@@ -14,12 +14,11 @@
   text-wrap: nowrap;
 }
 
-.cadastro-button{
+.cadastro-button {
   width: 60%;
 }
 
 .login-button:hover {
-  background: rgb(49, 39, 135);
   background: linear-gradient(
     123deg,
     rgba(49, 39, 135, 0.87) 0%,
@@ -32,17 +31,17 @@
   transform: scale(0.91);
 }
 
-.login-button:disabled{
+.login-button:disabled {
   background-color: var(--sadin-white);
   color: var(--washed-black);
 }
 
-.login-button:disabled:hover{
+.login-button:disabled:hover {
   background: var(--cloud-cover);
   cursor: not-allowed;
 }
 
-.login-button:disabled:active{
+.login-button:disabled:active {
   transform: scale(1);
 }
 

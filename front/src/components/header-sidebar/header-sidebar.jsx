@@ -1,21 +1,17 @@
 import "./header-sidebar.css";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import * as I from 'iconoir-react'
+import * as I from "iconoir-react";
 import { Avatar } from "@mui/material";
 
 export default function HeaderSidebar() {
-  const location = useLocation("");
-
+  const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [subMenuOpen, setsubMenuOpen] = useState(false);
-
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
   const nav = useNavigate();
 
-  // tirando caracteres especiais do pathname da pagina
-  var pathname = location.pathname.split("/");
-  var pathname = location.pathname.replace("%20", " ").replace("/", "");
-  
+  // Remove special characters from the page pathname
+  let pathname = location.pathname.replace("%20", " ").replace("/", "");
 
   return (
     <div className="hs-container">
@@ -29,12 +25,7 @@ export default function HeaderSidebar() {
       >
         <div className="hs-sidebar-container">
           <div className="hs-logo-container">
-            <h1
-              className="hs-logo"
-              onClick={() => {
-                nav("/");
-              }}
-            >
+            <h1 className="hs-logo" onClick={() => nav("/")}>
               EM <span className="hs-logo-highlight">3D</span>
             </h1>
             <div className="vertical-divider"></div>
@@ -44,9 +35,7 @@ export default function HeaderSidebar() {
             <h1
               className="hs-menu-item"
               id="agendamento"
-              onClick={() => {
-                nav("/agendamento");
-              }}
+              onClick={() => nav("/agendamento")}
             >
               <I.Calendar />
               Agendamento
@@ -54,54 +43,30 @@ export default function HeaderSidebar() {
             <h1
               className="hs-menu-item"
               id="gerenciamento"
-              onClick={() => {
-                setsubMenuOpen(!subMenuOpen);
-              }}
+              onClick={() => setSubMenuOpen(!subMenuOpen)}
             >
               <I.Settings />
               Gerenciamento
             </h1>
             {subMenuOpen && (
-              <>
-                <div className="sub-container">
-                  <h1
-                    className="sub-text"
-                    onClick={() => {
-                      nav("/maquinas");
-                    }}
-                  >
-                    <I.Printer />
-                    Máquinas
-                  </h1>
-                  <h1
-                    className="sub-text"
-                    onClick={() => {
-                      nav("/materiais");
-                    }}
-                  >
-                    <I.BoxIso />
-                    Materiais
-                  </h1>
-                  <h1
-                    className="sub-text"
-                    onClick={() => {
-                      nav("/pedidos");
-                    }}
-                  >
-                    <I.TaskList />
-                    Pedidos
-                  </h1>
-                  <h1
-                    className="sub-text"
-                    onClick={() => {
-                      nav("/perfis");
-                    }}
-                  >
-                    <I.Community />
-                    Perfis
-                  </h1>
-                </div>
-              </>
+              <div className="sub-container">
+                <h1 className="sub-text" onClick={() => nav("/maquinas")}>
+                  <I.Printer />
+                  Máquinas
+                </h1>
+                <h1 className="sub-text" onClick={() => nav("/materiais")}>
+                  <I.BoxIso />
+                  Materiais
+                </h1>
+                <h1 className="sub-text" onClick={() => nav("/pedidos")}>
+                  <I.TaskList />
+                  Pedidos
+                </h1>
+                <h1 className="sub-text" onClick={() => nav("/perfis")}>
+                  <I.Community />
+                  Perfis
+                </h1>
+              </div>
             )}
           </div>
         </div>
@@ -114,42 +79,33 @@ export default function HeaderSidebar() {
               </span>
             </h1>
             <p
-              onClick={() => {
-                setMenuOpen(!menuOpen);
-              }}
+              onClick={() => setMenuOpen(!menuOpen)}
               className="hs-active"
             >
-              <Avatar/>
+              <Avatar />
             </p>
           </div>
         </div>
         {menuOpen && (
-          <>
-            <div className="hs-modal-container">
-              <div className="modal-sair-container">
-                <div
-                  className="hs-sub-container"
-                  onClick={() => {
-                    nav("/meus pedidos");
-                  }}
-                >
-                  <I.Page />
-                  <h1 className="modal-text">Meus Pedidos</h1>
-                </div>
-                <div className="sub-divider"></div>
-                <div
-                  className="hs-sub-container"
-                  onClick={() => {
-                    nav("/");
-                  }}
-                >
-                  <I.Home />
-                  <h1 className="modal-text" >Sair</h1>
-                </div>
+          <div className="hs-modal-container">
+            <div className="modal-sair-container">
+              <div
+                className="hs-sub-container"
+                onClick={() => nav("/meus pedidos")}
+              >
+                <I.Page />
+                <h1 className="modal-text">Meus Pedidos</h1>
+              </div>
+              <div className="sub-divider"></div>
+              <div
+                className="hs-sub-container"
+                onClick={() => nav("/")}
+              >
+                <I.Home />
+                <h1 className="modal-text">Sair</h1>
               </div>
             </div>
-           
-          </>
+          </div>
         )}
       </I.IconoirProvider>
     </div>
