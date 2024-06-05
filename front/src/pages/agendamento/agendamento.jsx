@@ -33,7 +33,7 @@ export default function Agendamento() {
   };
 
   const handleDateChange = (date) => {
-    const formattedDate = dayjs(date).format("DD-MM-YYYY");
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
     setFormData((prevData) => ({
       ...prevData,
       data: formattedDate,
@@ -145,6 +145,7 @@ export default function Agendamento() {
                 <div className="datetime-sub-container">
                   <p className="label">Escolha a data: </p>
                   <X.DatePicker
+                    format="DD-MM-YYYY"
                     className="timepicker"
                     placeholder="dd/mm/aaaa"
                     name="data"

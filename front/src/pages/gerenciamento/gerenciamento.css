@@ -4,6 +4,11 @@
   text-transform: capitalize;
 }
 
+.table-message{
+  font-weight: var(--bold);
+  padding: 2vh;
+}
+
 .table-container {
   margin: 5vh 0;
 }

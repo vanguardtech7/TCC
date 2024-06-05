@@ -1,8 +1,8 @@
-import './pedidos.css'
+import "./pedidos.css";
 import HeaderSidebar from "../../components/header-sidebar/header-sidebar";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
@@ -21,19 +21,28 @@ export default function MeusPedidos() {
   const nav = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Obtenha o token do local storage
+    const token = localStorage.getItem("token"); // Obtenha o token do local storage
 
-    axios.get('https://techprint-1.onrender.com/meus-pedidos', {
-      headers: {
-        Authorization: `Bearer ${token}` // Envie o token no cabeçalho da requisição
-      }
-    })
-      .then(response => {
+    axios
+      .get("https://techprint-1.onrender.com/meus-pedidos", {
+        headers: {
+          Authorization: `Bearer ${token}`, // Envie o token no cabeçalho da requisição
+        },
+      })
+      .then((response) => {
         const data = response.data;
-        const formattedData = data.map(item => createData(item.id, item.nome_pedido, item.data, item.descri, item.tempo_impre));
+        const formattedData = data.map((item) =>
+          createData(
+            item.id,
+            item.nome_pedido,
+            item.data,
+            item.descri,
+            item.tempo_impre
+          )
+        );
         setRows(formattedData);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("There was an error fetching the meus-pedidos!", error);
       });
   }, []);
@@ -44,7 +53,7 @@ export default function MeusPedidos() {
 
   const deletePedido = async (id) => {
     try {
-      const token = localStorage.getItem('token'); // Obtenha o token do local storage
+      const token = localStorage.getItem("token"); // Obtenha o token do local storage
       const response = await fetch(
         `https://techprint-1.onrender.com/meus-pedidos/${id}`,
         {
@@ -57,11 +66,11 @@ export default function MeusPedidos() {
       if (!response.ok) {
         throw new Error("Falha ao excluir o pedido");
       }
-      toast.success("Seu pedido foi excluído com sucesso!")
+      toast.success("Seu pedido foi excluído com sucesso!");
       setRows(rows.filter((row) => row.id !== id)); // Atualize a lista de pedidos
       setModalOpen(false); // Fechar o modal de confirmação
     } catch (error) {
-      toast.error("Não foi possível excluir o seu pedido.")
+      toast.error("Não foi possível excluir o seu pedido.");
       console.error("Erro ao excluir o pedido:", error);
     }
   };
@@ -71,23 +80,25 @@ export default function MeusPedidos() {
       <HeaderSidebar />
       <ToastContainer position="bottom-right" />
       <div className="section-container">
-        <div className="top-container pedidos-container">
+        <div className="pedidos-container">
           <BackAgendamento />
-          <h1 className="pedidos-title">
-            {pathname}
-          </h1>
+          <h1 className="pedidos-title">{pathname}</h1>
         </div>
 
-        <M.TableContainer component={Paper} className="table-container" sx={{ maxHeight: 640 }}>
+        <M.TableContainer
+          component={Paper}
+          className="table-container"
+          sx={{ maxHeight: 640 }}
+        >
           <M.Table aria-label="simple table" stickyHeader>
             <M.TableHead>
               <M.TableRow>
-                <M.TableCell><b>Id</b></M.TableCell>
-                <M.TableCell><b>Nome do Pedido</b></M.TableCell>
-                <M.TableCell><b>Data</b></M.TableCell>
-                <M.TableCell><b>Descrição</b></M.TableCell>
-                <M.TableCell><b>Tempo de Impressão</b></M.TableCell>
-                <M.TableCell align="center"><b>Ações</b></M.TableCell>
+                <M.TableCell>Id</M.TableCell>
+                <M.TableCell>Nome do Pedido</M.TableCell>
+                <M.TableCell>Data</M.TableCell>
+                <M.TableCell>Descrição</M.TableCell>
+                <M.TableCell>Tempo de Impressão</M.TableCell>
+                <M.TableCell align="center">Ações</M.TableCell>
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
@@ -139,10 +150,14 @@ export default function MeusPedidos() {
               </button>
             </div>
           </div>
-          <div className="hs-overlay" onClick={() => { setModalOpen(false) }}></div>
+          <div
+            className="hs-overlay"
+            onClick={() => {
+              setModalOpen(false);
+            }}
+          ></div>
         </>
       )}
     </div>
   );
 }
-

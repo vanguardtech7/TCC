@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import * as M from "@mui/material";
 import * as I from "iconoir-react";
 import Paper from "@mui/material/Paper";
-import axios from "axios"; 
+import axios from "axios";
 
 export default function Maquina() {
   const location = useLocation("");
@@ -15,19 +15,23 @@ export default function Maquina() {
   const [maquinas, setMaquinas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [maquinaSelecionada, setMaquinaSelecionada] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchMaquinas();
   }, []);
 
   const fetchMaquinas = () => {
+    setIsLoading(true);
     axios
       .get("https://techprint-1.onrender.com/maquinas")
       .then((response) => {
         setMaquinas(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("erro ao buscar maquinas", error);
+        setIsLoading(false);
       });
   };
 
@@ -51,8 +55,7 @@ export default function Maquina() {
         );
         setModalOpen(false);
         setMaquinaSelecionada(null);
-        toast.success('Máquina Excluida com sucesso!')
-        
+        toast.success("Máquina Excluida com sucesso!");
       })
       .catch((error) => {
         console.error("erro ao excluir maquina", error);
@@ -61,13 +64,10 @@ export default function Maquina() {
 
   return (
     <div className="section-body">
-      <ToastContainer
-        position="bottom-right"
-      />
+      <ToastContainer position="bottom-right" />
       <HeaderSidebar />
       <div className="section-container">
         <div className="top-container">
-
           <h1 className="pedidos-title">{pathname}</h1>
           <button
             className="system-btn"
@@ -92,29 +92,51 @@ export default function Maquina() {
               </M.TableRow>
             </M.TableHead>
             <M.TableBody>
-              {maquinas.map((maquina) => (
-                <M.TableRow key={maquina.id}>
-                  {/* <M.TableCell component="th" scope="row">
-                    {maquina.id}
-                  </M.TableCell> */}
-                  <M.TableCell align="left">{maquina.nome_maquina}</M.TableCell>
-                  <M.TableCell align="left">{maquina.modelo}</M.TableCell>
-                  <M.TableCell align="left">{maquina.capacidade}</M.TableCell>
-                  <M.TableCell align="left">{maquina.num_serie}</M.TableCell>
-                  <M.TableCell align="left">{maquina.entrada_ener}</M.TableCell>
-                  <M.TableCell align="left">{maquina.especi}</M.TableCell>
-                  <M.TableCell
-                    align="center"
-                    onClick={() => {
-                      setMaquinaSelecionada(maquina);
-                      setModalOpen(true);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <I.Trash />
-                  </M.TableCell>
-                </M.TableRow>
-              ))}
+              {isLoading ? (
+                <>
+                  <p className="table-message">Carregando...</p>
+                </>
+              ) : (
+                <>
+                  {maquinas.length > 0 ? (
+                    maquinas.map((maquina) => (
+                      <M.TableRow key={maquina.id}>
+                        {/* <M.TableCell component="th" scope="row">
+                          {maquina.id}
+                        </M.TableCell> */}
+                        <M.TableCell align="left">
+                          {maquina.nome_maquina}
+                        </M.TableCell>
+                        <M.TableCell align="left">{maquina.modelo}</M.TableCell>
+                        <M.TableCell align="left">
+                          {maquina.capacidade}
+                        </M.TableCell>
+                        <M.TableCell align="left">
+                          {maquina.num_serie}
+                        </M.TableCell>
+                        <M.TableCell align="left">
+                          {maquina.entrada_ener}
+                        </M.TableCell>
+                        <M.TableCell align="left">{maquina.especi}</M.TableCell>
+                        <M.TableCell
+                          align="center"
+                          onClick={() => {
+                            setMaquinaSelecionada(maquina);
+                            setModalOpen(true);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <I.Trash />
+                        </M.TableCell>
+                      </M.TableRow>
+                    ))
+                  ) : (
+                    <p className="table-message">
+                      Parece que ainda não há nenhum dado...
+                    </p>
+                  )}
+                </>
+              )}
             </M.TableBody>
           </M.Table>
         </M.TableContainer>
