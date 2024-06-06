@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db/conexao');
+const Usuario = require('./usuarios');
+
 
 const pedidos = sequelize.define('pedidos', {
   nome_pedido: {
@@ -18,14 +20,17 @@ const pedidos = sequelize.define('pedidos', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  user_id: { // Novo campo para armazenar o ID do usuário
+ user_id: { 
     type: DataTypes.INTEGER,
     allowNull: false
-  }
+ }
 }, {
   timestamps: false,
   freezeTableName: true
 });
 
 pedidos.sync();
-module.exports = pedidos;
+
+pedidos.belongsTo(Usuario, { foreignKey: 'user_id' });
+
+module.exports = pedidos; 
