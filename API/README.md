@@ -126,4 +126,6 @@ Esse projeto é usado pela seguinte empresa:
 ## Autores
 
 - [@Douglasrochass](https://www.github.com/Douglasrochass)
+- [@kadujms](https://www.github.com/kadujms)
+- [@geodlima](https://www.github.com/geodlima)
 
