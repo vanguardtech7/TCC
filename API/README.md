@@ -16,7 +16,6 @@ Api de gerenciamento/agendamento de impressora 3D
 - Sequelize
 - MySQL
 - Cyclic
--
 
 
 ## Documentação da API
@@ -119,7 +118,7 @@ Api de gerenciamento/agendamento de impressora 3D
 
 Esse projeto é usado pela seguinte empresa:
 
-- Senai suiço-brasileira, São Paulo.
+- SENAI Suiço-Brasileira, São Paulo.
 
 
 
