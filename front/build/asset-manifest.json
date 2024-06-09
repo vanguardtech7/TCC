@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.677ca285.css",
+    "main.js": "/static/js/main.cbbf26cd.js",
+    "static/media/background-image.png": "/static/media/background-image.a42ccf48369b7f5fb085.png",
+    "static/media/hero-image-full.svg": "/static/media/hero-image-full.dd73fabd80121cb070943396d57bf371.svg",
+    "static/media/hero-image-astro.svg": "/static/media/hero-image-astro.85e7fb22e1278249cf8390adbff46140.svg",
+    "static/media/impressora2.svg": "/static/media/impressora2.6d9f9670364564e64a2d4601e2e1178d.svg",
+    "static/media/impressora3.svg": "/static/media/impressora3.c2dab87e27808a4158a7ea4ed8b0ff65.svg",
+    "static/media/tutorial2.svg": "/static/media/tutorial2.995754d713fe0e45e1f5506209d4d7a9.svg",
+    "static/media/impressora1.svg": "/static/media/impressora1.8c791d51b91e38a0754e612a3ed04aa3.svg",
+    "static/media/tutorial1.svg": "/static/media/tutorial1.089ba9319ab956b5a4d0d44065fdec48.svg",
+    "static/media/tutorial4.svg": "/static/media/tutorial4.e0ff0096a930a8f57bf7fb6586f430b3.svg",
+    "static/media/ReemKufiInk-Regular.ttf": "/static/media/ReemKufiInk-Regular.d96ef6c894ce6de22a64.ttf",
+    "static/media/DMSans-VariableFont_opsz,wght.ttf": "/static/media/DMSans-VariableFont_opsz,wght.90130db6a4fc53f17a88.ttf",
+    "static/media/vanguard-logo.svg": "/static/media/vanguard-logo.d233616d367944ed45a74bc56d5b5947.svg",
+    "static/media/tutorial3.png": "/static/media/tutorial3.2af037b3d7eb2ce6558a.png",
+    "static/media/logo-senai.svg": "/static/media/logo-senai.2b07169278708b4936a32e2d817c9ea1.svg",
+    "static/media/background-elipse-2.png": "/static/media/background-elipse-2.0b76afa041dac692aeb0.png",
+    "static/media/spinner.svg": "/static/media/spinner.7ca0a5e182cada75ba8eaa0dd47e3fe1.svg",
+    "index.html": "/index.html",
+    "static/media/hero-image-background.svg": "/static/media/hero-image-background.f61529c0732905e9c540af340051a775.svg",
+    "main.677ca285.css.map": "/static/css/main.677ca285.css.map",
+    "main.cbbf26cd.js.map": "/static/js/main.cbbf26cd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.677ca285.css",
+    "static/js/main.cbbf26cd.js"
+  ]
+}

@@ -1,6 +1,7 @@
 services:
   api:
     build: ./api
+    image: arthursss/tccinfra:v1.0
     container_name: docker-api
     ports:
       - "4000:4000"
@@ -9,18 +10,15 @@ services:
      - DB_USER=vanguard
      - DB_PASS=Techprint3d
      - PORT=4000
-     - DB_HOST=vanguardtech.mysql.database.azure.com
+     - DB_HOST=techprint.mysql.database.azure.com
      - DB_DIALECT=mysql
      - TOKEN=aslkjasdogfhhsafosdjvcabsçdovb
-    volumes:
-      - ./api:/app/data
 
   front:
     build: ./front
+    image: arthursss/tccinfra:v2.0
     container_name: docker-front
-    depends_on:
-      - api
     ports:
-      - "3000:3000"
+      - "3000:80"
     stdin_open: true
-    tty: true
+    tty: true 
